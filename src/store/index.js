@@ -1,11 +1,23 @@
 import Vue from "vue";
 import Vuex from "vuex";
-
+import app from "./modules/app";
+import items from "./modules/items";
+import categories from "./modules/categories";
+import createPersistedState from "vuex-persistedstate";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {},
-  mutations: {},
-  actions: {},
-  modules: {}
+  modules: {
+    app,
+    items,
+    categories
+  },
+  plugins: [
+    // createPersistedState(),
+    (store) => {
+      store.subscribe(() => {
+        store.dispatch('updateSocalStorageSize')
+      })
+    }
+  ],
 });
