@@ -1,84 +1,75 @@
 <template>
-  <vs-navbar
-    class="navbar"
-    shadow
-    square
-    center-collapsed
-    v-model="active"
-    :style="navStyle"
-  >
-    <template #left>
-      <vs-button @click="toggleSidebar" flat icon>
-        <i class="bx bx-menu"></i>
-      </vs-button>
-    </template>
-    <vs-navbar-item :active="active == 'guide'" id="guide">
-      Guide
-    </vs-navbar-item>
-    <vs-navbar-item :active="active == 'docs'" id="docs">
-      Documents
-    </vs-navbar-item>
-    <vs-navbar-item :active="active == 'components'" id="components">
-      Components
-    </vs-navbar-item>
-    <vs-navbar-item :active="active == 'license'" id="license">
-      license
-    </vs-navbar-item>
-    <template #right>
-      <vs-button flat>Login</vs-button>
-
-      <vs-tooltip bottom shadow not-hover v-model="activeTooltip1">
-        <vs-avatar
-          badge
-          badge-color="warn"
-          badge-position="top-right"
-          @click="activeTooltip1 = !activeTooltip1"
-        >
-          <img src="/avatars/avatar-5.png" alt="" />
-          <template #badge>
-            28
-          </template>
-        </vs-avatar>
-        <template #tooltip>
-          <div>
-            <vs-button @click="activeTooltip1 = false" danger block>
-              Delete
-            </vs-button>
-            <vs-button @click="activeTooltip1 = false" transparent dark block>
-              Cancel
-            </vs-button>
-          </div>
-        </template>
-      </vs-tooltip>
-    </template>
-  </vs-navbar>
+  <nav class="navbar">
+    <div class="start"></div>
+    <div class="middle">
+      <AnalyzeVue style="--fs: 0.67em" />
+      <!-- <div class="box"></div> -->
+    </div>
+    <div class="end"></div>
+  </nav>
 </template>
+
 <script>
-import { mapState } from 'vuex';
-import { mutations } from '../store/types';
+import AnalyzeVue from './Recorder/Analyze.vue';
+
 export default {
-  data: () => ({
-    active: 'home',
-    activeSidebar: false,
-    activeTooltip1: false
-  }),
-  computed: {
-    ...mapState(['isOpen']),
-    navStyle() {
-      return {
-        width: this.isOpen ? 'calc(100% - 260px)' : ''
-      };
-    }
+  components: {
+    AnalyzeVue,
   },
-  methods: {
-    toggleSidebar() {
-      return this.$store.commit(mutations.TOGGLE_ASIDE_MENU);
-    }
-  }
 };
 </script>
+
 <style lang="scss" scoped>
 .navbar {
-  padding: 0.6rem 0;
+  position: sticky;
+  bottom: 0;
+  font-size: 18px;
+  $bg: #161618;
+  $bg: #111111;
+  $bg: white;
+  $bg: #1f2224;
+  $h: 5em;
+  $bar-pos: 0.2;
+  $bar-size: $h * $bar-pos;
+  $circle-size: $h * 1;
+  $skew: 0%;
+  position: relative;
+  align-items: flex-end;
+  display: flex;
+  height: $h;
+  width: 100%;
+  background: transparent;
+  filter: drop-shadow(0 0 30px rgba(0, 0, 0, 0.7));
+  > * {
+    // border: 1px solid red;
+  }
+  .start {
+    height: $bar-size;
+    flex: 1 1 100.5%;
+    background: $bg;
+    clip-path: polygon(0 0%, 100% $skew, 100% 100%, 0% 100%);
+  }
+  .end {
+    flex: 1 1 100.5%;
+    height: $bar-size;
+    background: $bg;
+    clip-path: polygon(0 $skew, 100% 0, 100% 100%, 0% 100%);
+  }
+  .middle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 0;
+    position: absolute;
+    left: 50%;
+    bottom: 0%;
+    border-radius: 100px 100% 0 0 ;
+    width: $circle-size;
+    height: $circle-size;
+    z-index: 1;
+    background: $bg;
+    transform: translateX(-50%);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.363);
+  }
 }
 </style>

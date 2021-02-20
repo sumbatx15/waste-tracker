@@ -21,8 +21,8 @@ body {
   color: white;
   background-color: white;
   background-color: #1f2224;
-  background-color: #3d4042;
-  background-color: #161618;
+  // background-color: #3d4042;
+  // background-color: #161618;
   //   background: rgb(22,22,24);
   // background: linear-gradient(90deg, rgba(22,22,24,1) 0%, rgba(37,37,45,1) 100%);
   * {

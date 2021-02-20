@@ -9,48 +9,54 @@ export default {
         color: '#F26C4F',
         icon: {
           prefix: 'fas',
-          name: 'file-invoice-dollar'
-        }
+          iconName: 'file-invoice-dollar'
+        },
+        matches: ['חשבון חשמל', 'ארנונה', 'מים', 'שכר דירה']
       },
       {
         name: 'סיגריות',
         color: '#9CC4E4',
         icon: {
           prefix: 'fas',
-          name: 'smoking'
-        }
+          iconName: 'smoking'
+        },
+        matches: ['חשבון חשמל', 'ארנונה', 'מים', 'שכר דירה']
       },
       {
         name: 'דלק',
         color: '#F8BE00',
         icon: {
           prefix: 'fas',
-          name: 'gas-pump'
-        }
+          iconName: 'gas-pump'
+        },
+        matches: ['חשבון חשמל', 'ארנונה', 'מים', 'שכר דירה']
       },
       {
         name: 'אוכל בחוץ',
         color: '#FE4365',
         icon: {
           prefix: 'fas',
-          name: 'hamburger'
-        }
+          iconName: 'hamburger'
+        },
+        matches: ['חשבון חשמל', 'ארנונה', 'מים', 'שכר דירה']
       },
       {
         name: 'כללי',
         color: '#2B2D30',
         icon: {
           prefix: 'fab',
-          name: 'buffer'
-        }
+          iconName: 'buffer'
+        },
+        matches: ['חשבון חשמל', 'ארנונה', 'מים', 'שכר דירה']
       },
       {
         name: 'בילוי',
         color: '#BDEB07',
         icon: {
           prefix: 'fas',
-          name: 'snowboarding'
-        }
+          iconName: 'snowboarding'
+        },
+        matches: ['חשבון חשמל', 'ארנונה', 'מים', 'שכר דירה']
       }
     ]
   },

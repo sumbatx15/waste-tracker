@@ -1,52 +1,62 @@
 <template>
-  <div>
-    <fa icon="user"></fa>
-    <VSwatches
-      v-model="color"
-      row-length="5"
-      shapes="circles"
-      :swatches="colors"
-    />
-    <fa v-for="cat in categories" :icon="[cat.icon.prefix, cat.icon.name]"></fa>
+  <div class="p-catefories">
+    <div class="title">קטגוריות</div>
+    <div class="content">
+      <CategoryListItem
+        v-for="category in categories"
+        :key="category.name"
+        :category="category"
+      />
+    </div>
   </div>
 </template>
 
 <script>
-import VueAwesomeIconPicker from '@rightbraintechbd/vue-awesome-icon-picker';
-import VueIconPicker from 'vue-icon-picker';
 import palettes from 'nice-color-palettes';
-import VSwatches from 'vue-swatches';
-import 'vue-swatches/dist/vue-swatches.css';
-import { fas } from '@fortawesome/free-solid-svg-icons';
 import { mapGetters } from 'vuex';
-console.log('fas:', fas);
+import CategoryListItem from './components/CategoryListItem.vue';
 
 export default {
   components: {
-    VueAwesomeIconPicker,
-    VSwatches,
-    VueIconPicker
+    CategoryListItem,
   },
   data() {
     return {
-      fas,
       icon: {},
-      color: '#1CA085'
+      color: '#1CA085',
     };
   },
   computed: {
     ...mapGetters(['categories']),
     colors() {
       return palettes.slice(0, 7); //[palettes[0], palettes[1], palettes[2]];
-    }
+    },
   },
   methods: {
-    onIconSelected(icon) {
-      console.log('icon:', icon);
-      // your code here
-    }
-  }
+    onIconSelected(icon) {},
+  },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.p-catefories {
+  display: flex;
+  flex-flow: column;
+  position: relative;
+  .title {
+    position: sticky;
+    top: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.253);
+  }
+  .content {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-flow: column;
+    gap: 10px;
+  }
+}
+</style>

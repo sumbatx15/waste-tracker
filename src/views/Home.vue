@@ -7,11 +7,11 @@
     <!-- <button @click="resetState" style="position: fixed; top:0; left: 0; margin: 1rem">Reset State</button> -->
     <vs-dialog v-model="active">
       <template #header>
-        <h4 class="not-margin">Add items</b></h4>
+        <h4 class="not-margin">הוסף מוצר</b></h4>
       </template>
       <div class="input-text">{{item.str}}</div>
       <div class="inputs"> 
-        <vs-input v-model="item.name" placeholder="Email" />
+        <vs-input v-model="item.name"  />
         <vs-input type="number" v-model="item.amount" />
         <vs-input type="number" v-model="item.cost" />
         <vs-input type="date" v-model="itemDate" />
@@ -19,16 +19,17 @@
         <Categories @select="handleCategorySelect"/>
       </div>
       <template #footer>
-        <vs-button block @click="handleAdd">
+        <vs-button dark block @click="handleAdd">
           אישור
         </vs-button>
       </template>
     </vs-dialog>
     <ChartVue/>
     <ItemList style="flex:1" />
-    <div class="analyze">
+    <!-- <div class="analyze">
       <Analyze @result="handleResult" class="" />
-    </div>
+    </div> -->
+    <NavbarVue/>
   </div>
 </template>
 
@@ -41,66 +42,67 @@ import Categories from '@/components/Chips/Categories.vue';
 import ChartVue from '@/components/Charts/Chart.vue';
 import { mapGetters } from 'vuex';
 import DatePicker from '@/components/DatePicker.vue';
+import NavbarVue from '../components/Navbar.vue';
 export default {
   components: {
     Analyze,
     ItemList,
     Categories,
     ChartVue,
-    DatePicker
+    DatePicker,
+    NavbarVue,
   },
   data() {
     return {
-      active: false,
-      item: {}
+      active: true,
+      item: {},
     };
   },
-  mounted(){
-    this.$el.style.maxHeight = `${window.innerHeight}px`
+  mounted() {
+    // this.$el.style.maxHeight = `${window.innerHeight}px`;
   },
   computed: {
     ...mapGetters(['displayStorageSize']),
-    itemDate:{
-      get(){
-        if(!this.item.timestamp) return
-        return (new Date(this.item.timestamp)).toISOString().split('T')[0]
+    itemDate: {
+      get() {
+        if (!this.item.timestamp) return;
+        return new Date(this.item.timestamp).toISOString().split('T')[0];
       },
-      set(value){
-        this.item.timestamp = (new Date(value)).getTime()
-      }
-    }
+      set(value) {
+        this.item.timestamp = new Date(value).getTime();
+      },
+    },
   },
   methods: {
-    handleCategorySelect(category){
-      this.item.category = category.name
+    handleCategorySelect(category) {
+      this.item.category = category.name;
     },
-    resetState(){
-      window.localStorage.clear()
-      location.reload()
+    resetState() {
+      window.localStorage.clear();
+      location.reload();
     },
     handleResult(item) {
-      item.category="כללי"
-      item.timestamp = Date.now()
+      item.category = 'כללי';
+      item.timestamp = Date.now();
       this.item = item;
       this.active = true;
     },
-    handleAdd(){
-      this.$store.dispatch('addItem', this.item)
-      this.active = false
-    }
-  }
+    handleAdd() {
+      this.$store.dispatch('addItem', this.item);
+      this.active = false;
+    },
+  },
 };
 </script>
-<style lang="scss" scoped>
-.home{
-   display: flex;
+<style lang="scss" >
+.home {
+  display: flex;
   flex-flow: column;
   height: 100%;
   box-sizing: border-box;
   justify-content: center;
   align-items: center;
-  padding: 0.3rem;
-  .analyze{
+  .analyze {
     flex: 0 0 96px;
     padding: 0;
     box-sizing: border-box;
@@ -108,8 +110,8 @@ export default {
     display: flex;
     justify-content: center;
   }
-  .storage-size{
-      direction: ltr;
+  .storage-size {
+    direction: ltr;
     position: absolute;
     top: 0;
     left: 0;
@@ -117,17 +119,16 @@ export default {
     font-size: 0.8em;
     color: rgba(255, 255, 255, 0.466);
   }
-  &>:last-child{
-
+  & > :last-child {
   }
-  .input-text{
+  .input-text {
     text-align: center;
     margin-bottom: 10px;
   }
-  .inputs{
-    >*{
-      >.vs-input-content> input{
-        width: 100%
+  .inputs {
+    > * {
+      > .vs-input-content > input {
+        width: 100%;
       }
       width: 100%;
       margin-bottom: 10px;
