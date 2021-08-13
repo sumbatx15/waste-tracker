@@ -1,12 +1,12 @@
-import Vue from "vue";
-import Vuex from "vuex";
-import app from "./modules/app";
-import items from "./modules/items";
-import categories from "./modules/categories";
-import createPersistedState from "vuex-persistedstate";
+import Vue from 'vue';
+import Vuex from 'vuex';
+import app from './modules/app';
+import items from './modules/items';
+import categories from './modules/categories';
+import createPersistedState from 'vuex-persistedstate';
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+export default window.store = new Vuex.Store({
   modules: {
     app,
     items,
@@ -14,10 +14,10 @@ export default new Vuex.Store({
   },
   plugins: [
     // createPersistedState(),
-    (store) => {
+    store => {
       store.subscribe(() => {
-        store.dispatch('updateSocalStorageSize')
-      })
+        store.dispatch('updateSocalStorageSize');
+      });
     }
-  ],
+  ]
 });

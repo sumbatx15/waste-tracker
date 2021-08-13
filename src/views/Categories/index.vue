@@ -3,6 +3,7 @@
     <div class="title">קטגוריות</div>
     <div class="content">
       <CategoryListItem
+        @click="handleClick(category)"
         v-for="category in categories"
         :key="category.name"
         :category="category"
@@ -33,7 +34,10 @@ export default {
     },
   },
   methods: {
-    onIconSelected(icon) {},
+    handleClick(category) {
+      console.log('category:', category)
+      this.$router.push({ name: 'Category View', params: { id: category.id } });
+    },
   },
 };
 </script>

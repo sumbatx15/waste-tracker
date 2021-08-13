@@ -32,7 +32,6 @@ export function confirm({ title, message, component, props }) {
 }
 
 export const custom_confirm = window.custom_confirm = (args) => {
-    console.log('args:', args)
     return confirm({ ...args, component: Prompt })
 }
 export default {

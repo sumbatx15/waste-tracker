@@ -1,30 +1,25 @@
 <template>
-  <div class="category-item" :style="{ '--color': category.color }">
+  <div v-bind="$attrs" v-on="$listeners" class="category-item" :style="{ '--color': category.color }">
     <div class="name-container" @click="collapse = !collapse">
       <CategoryIconVue style="--size: 1rem" :category="category" />
       <span class="name">{{ category.name }}</span>
     </div>
-    <div class="matches">
-      <div class="match" v-for="match in category.matches" :key="match">
-        {{ match }}
-      </div>
-    </div>
-    <!-- <IconPickerVue
-      @icon-select="handleIconSelect"
-      :collapse="collapse"
-      :color="category.color"
-    /> -->
+    <category-matches :category="category" />
   </div>
 </template>
 
 <script>
-import CategoryIconVue from '../../../components/common/CategoryIcon.vue';
+import Chip from '@/components/Chips/Chip.vue';
+import CategoryIconVue from '@/components/common/CategoryIcon.vue';
 import IconPickerVue from './IconPicker.vue';
+import CategoryMatches from '../../../components/Categories/CategoryMatches.vue';
 
 export default {
   components: {
     CategoryIconVue,
     IconPickerVue,
+    Chip,
+    CategoryMatches,
   },
   props: {
     category: Object,
@@ -59,17 +54,6 @@ export default {
     gap: 10px;
     .name {
       font-weight: bold;
-    }
-  }
-  .matches {
-    display: flex;
-    flex-flow: row wrap;
-    gap: 8px;
-    .match {
-      font-size: .7rem;
-      padding: 2px 8px;
-      border-radius: 2rem;
-      border: 1px solid var(--p-color);
     }
   }
 }

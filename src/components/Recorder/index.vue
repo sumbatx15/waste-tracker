@@ -106,6 +106,7 @@ $success: rgb(24, 187, 24);
     transform: translateY(-100%);
     position: absolute;
     .tooltip {
+      font-size: .8rem;
       padding: 3px 15px;
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
       border-radius: 50px;
@@ -125,7 +126,7 @@ $success: rgb(24, 187, 24);
   border-radius: 4em;
   box-sizing: border-box;
   display: flex;
-  border: 0.13em solid black;
+  border: 2px solid black;
   justify-content: center;
   align-items: center;
   align-self: center;
@@ -149,7 +150,7 @@ $success: rgb(24, 187, 24);
   }
   &.active {
     animation: breath 1.5s infinite;
-    border: 0.1em solid $success;
+    border: 2px solid $success;
     color: white;
     .circle {
       width: 90%;

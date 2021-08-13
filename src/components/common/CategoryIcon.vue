@@ -1,5 +1,11 @@
 <template>
-  <div v-bind="$attrs" v-on="$listeners" class="category-icon" :style="{ '--color': category.color }">
+  <div
+    v-bind="$attrs"
+    v-on="$listeners"
+    class="category-icon"
+    :style="{ '--color': category.color }"
+    @click="handleClick"
+  >
     <fa :icon="[category.icon.prefix, category.icon.iconName]"></fa>
   </div>
 </template>
@@ -8,17 +14,31 @@
 export default {
   inheritAttrs: false,
   props: {
+    routeOnClick: Boolean,
     category: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
+  methods: {
+    handleClick() {
+      // if (!this.routeOnClick) return;
+      this.$store.commit('setAnimateStart', {
+        el: this.$el,
+        clientRect: this.$el.getBoundingClientRect()
+      });
+      this.$router.push({
+        name: 'Category View',
+        params: { id: this.category.id }
+      });
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
 .category-icon {
-  --p-size: var(--size, 0.8rem);
+  --p-size: var(--size, 0.9em);
   --p-color: var(--color, #f61762);
   --mult: 1.8;
   --box: calc(var(--p-size) * var(--mult));
@@ -35,7 +55,7 @@ export default {
   text-align: center;
   color: #161618;
   svg {
-    font-size: 1.2em;
+    font-size: 0.9em;
   }
 }
 </style>

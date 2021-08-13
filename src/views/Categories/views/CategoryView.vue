@@ -1,18 +1,48 @@
 <template>
   <div class="category-view" :style="{ '--color': category.color }">
     <nav class="navbar">
-      <fa icon="chevron-left"></fa>
+      <fa
+        v-anime="{
+          translateX: ['-20px', '0'],
+          duration: 500
+        }"
+        icon="chevron-left"
+        @click="$router.go(-1)"
+      ></fa>
     </nav>
     <div class="content">
       <div class="name">
-        <span>קטגוריה</span>
-        <input class="name-input" v-model="category.name"  placeholder="הקלד שם.."/>
+        <span
+          v-anime="{
+            opacity: [0, 1],
+            translateY: ['-20px', '0'],
+            duration: 500
+          }"
+          >קטגוריה</span
+        >
+        <input
+          v-anime="{
+            delay: 200,
+            translateY: ['50px', '0'],
+            opacity: [0, 1],
+            duration: 500,
+            easing: 'easeOutExpo'
+          }"
+          class="name-input"
+          v-model="category.name"
+          placeholder="הקלד שם.."
+        />
       </div>
       <div class="icon-preview">
         <div class="icon" @click="collapse = !collapse">
           <fa icon="image" />
         </div>
-        <CategoryIcon :category="category" @click="collapse = !collapse" />
+        <CategoryIcon
+          @mount="handleIconMount"
+          ref="categoryIcon"
+          :category="category"
+          @click="collapse = !collapse"
+        />
         <div class="icon">
           <fa icon="palette" />
           <VSwatches
@@ -25,6 +55,22 @@
         </div>
       </div>
       <IconPicker :collapse="collapse" @iconSelect="handleIconSelect" />
+      <div class="add-matches">
+        <input
+          type="text"
+          v-model="matcher"
+          placeholder="הוסף מזהים.."
+          @keypress.enter="addMatcher"
+        />
+        <category-matches
+          stagger
+          :animDelay="1000"
+          removable
+          @remove="handleRemoveMatch"
+          :category="category"
+          style="font-size: 1.1rem; justify-content: center"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -33,35 +79,44 @@
 import CategoryIcon from '../../../components/common/CategoryIcon.vue';
 import ColorPicker from '../components/ColorPicker.vue';
 import IconPicker from '../components/IconPicker.vue';
+import CategoryMatches from '../../../components/Categories/CategoryMatches.vue';
 import VSwatches from 'vue-swatches';
 import 'vue-swatches/dist/vue-swatches.css';
+const mock = {
+  name: 'אוכל בחוץ',
+  color: '#FE4365',
+  icon: {
+    prefix: 'fas',
+    iconName: 'hamburger'
+  },
+  matches: ['חשבון חשמל', 'ארנונה', 'מים', 'שכר דירה']
+};
+
 export default {
   components: {
     CategoryIcon,
     IconPicker,
     ColorPicker,
     VSwatches,
-  },
-  props: {
-    category: {
-      type: Object,
-      default: () => ({
-        name: 'אוכל בחוץ',
-        color: '#FE4365',
-        icon: {
-          prefix: 'fas',
-          iconName: 'hamburger',
-        },
-        matches: ['חשבון חשמל', 'ארנונה', 'מים', 'שכר דירה'],
-      }),
-    },
+    CategoryMatches
   },
   data() {
     return {
+      matcher: '',
       collapse: true,
+      categoryId: ''
     };
   },
+  created() {
+    this.categoryId = this.$route.params?.id;
+  },
   computed: {
+    category() {
+      return (
+        this.$store.getters.categories.find(c => c.id == this.categoryId) ||
+        mock
+      );
+    },
     hasName() {
       return this.category.name;
     },
@@ -69,11 +124,31 @@ export default {
       if (this.hasName) return;
       return {
         fontWeight: 400,
-        color: 'gray',
+        color: 'gray'
       };
-    },
+    }
   },
   methods: {
+    handleIconMount(el) {
+      this.$store.commit('setAnimateEnd', {
+        el: el,
+        clientRect: el.getBoundingClientRect()
+      });
+    },
+    addMatcher() {
+      this.$store.commit('addMatcher', {
+        id: this.category.id,
+        matcher: this.matcher
+      });
+      this.matcher = '';
+    },
+    handleRemoveMatch(matcher) {
+      console.log('matcher:', matcher);
+      this.$store.commit('removeMatcher', {
+        id: this.category.id,
+        matcher
+      });
+    },
     handleIconSelect({ iconName, prefix }) {
       this.category.icon.iconName = iconName;
       this.category.icon.prefix = prefix;
@@ -81,12 +156,12 @@ export default {
     },
     handleNameInput({ target: { innerText } }) {
       this.category.name = innerText;
-    },
-  },
+    }
+  }
 };
 </script>
 
-<style lang="scss" >
+<style lang="scss">
 .category-view {
   --p-color: var(--color, white);
   border-top: 3px solid var(--p-color);
@@ -114,6 +189,8 @@ export default {
         background: transparent;
         border: none;
         padding: 0;
+        box-sizing: border-box;
+        max-width: 100%;
         font-size: 2.2rem;
         color: white;
         margin-top: -0.3rem;
@@ -134,7 +211,7 @@ export default {
       display: flex;
       align-items: center;
       justify-content: center;
-      --size: 2.25rem;
+      font-size: 3.35rem;
       gap: 0.7rem;
       .icon {
         display: flex;
@@ -160,6 +237,23 @@ export default {
           width: 1.8em !important;
           height: 1.8em !important;
         }
+      }
+    }
+    .add-matches {
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+      gap: 20px;
+      padding: 0 20px 20px;
+
+      input {
+        padding: 5px;
+        text-align: center;
+        border: none;
+        border-bottom: 2px solid rgba(0, 0, 0, 0.164);
+        background: transparent;
+        color: white;
+        flex: 1;
       }
     }
   }

@@ -1,10 +1,92 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <!-- <CategoryIconAnimation v-if="showIconAnimation" />
+    <nav class="nav">
+      <router-link to="/">Home</router-link>
+      <router-link to="/categories">Categories</router-link>
+      <router-link to="/category-view">Category view</router-link>
+    </nav> -->
+    <transition
+      @before-enter="beforeEnter"
+      @enter="enter"
+      @after-enter="afterEnter"
+      @enter-cancelled="enterCancelled"
+      @before-leave="beforeLeave"
+      @leave="leave"
+      @after-leave="afterLeave"
+      @leave-cancelled="leaveCancelled"
+      mode="out-in"
+    >
+      <router-view class="view"></router-view>
+    </transition>
   </div>
 </template>
 
-<script></script>
+<script>
+// import CategoryIconAnimation from '@/components/Animate/CategoryIcon';
+import { mapGetters } from 'vuex';
+export default {
+  // components: {
+  //   CategoryIconAnimation
+  // },
+  computed: {
+    ...mapGetters(['showIconAnimation'])
+  },
+  methods: {
+    beforeEnter: function(el) {
+      el.style.position = 'fixed';
+      el.style.width = '100vw';
+      el.style.height = '100vh';
+      el.style.opacity = '0';
+      el.style.transition = 'opacity 200ms';
+      // ...
+    },
+    // the done callback is optional when
+    // used in combination with CSS
+    enter: function(el, done) {
+      done();
+      el.style.opacity = '1';
+      setTimeout(done, 200);
+    },
+    afterEnter: function(el) {
+      el.style.position = '';
+      // ...
+    },
+    enterCancelled: function(el) {
+      // ...
+    },
+
+    // --------
+    // LEAVING
+    // --------
+
+    beforeLeave: function(el) {
+      this.$anime({
+        targets: el,
+        opacity: [1, 0],
+        duration: 200,
+        easing: 'linear'
+      });
+
+      // ...
+    },
+    // the done callback is optional when
+    // used in combination with CSS
+    leave: function(el, done) {
+      setTimeout(done, 200);
+    },
+    afterLeave: function(el) {
+      el.style.position = '';
+
+      // ...
+    },
+    // leaveCancelled only available with v-show
+    leaveCancelled: function(el) {
+      // ...
+    }
+  }
+};
+</script>
 
 <style lang="scss">
 html,
@@ -32,11 +114,21 @@ body {
 #app {
   width: 100vw;
   height: 100vh;
-  > :first-child {
-    height: 100%;
-    width: 100%;
-
+  display: flex;
+  flex-flow: column;
+  > .view {
+    flex: 1;
     overflow: auto;
+  }
+  > .nav {
+    direction: ltr;
+    display: flex;
+    padding: 0.5rem 0;
+    justify-content: space-evenly;
+    a {
+      text-decoration: none;
+      color: white;
+    }
   }
 }
 </style>

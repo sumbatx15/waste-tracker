@@ -3,7 +3,7 @@
   <div class="storage-size">
       {{displayStorageSize}} | 5 MB
     </div>
-    <DatePicker/>
+    <!-- <DatePicker/> -->
     <!-- <button @click="resetState" style="position: fixed; top:0; left: 0; margin: 1rem">Reset State</button> -->
     <vs-dialog v-model="active">
       <template #header>
@@ -16,7 +16,7 @@
         <vs-input type="number" v-model="item.cost" />
         <vs-input type="date" v-model="itemDate" />
         <vs-input v-model="item.category" />
-        <Categories @select="handleCategorySelect"/>
+        <category-picker @select="handleCategorySelect"/>
       </div>
       <template #footer>
         <vs-button dark block @click="handleAdd">
@@ -24,7 +24,7 @@
         </vs-button>
       </template>
     </vs-dialog>
-    <ChartVue/>
+      <ChartVue />
     <ItemList style="flex:1" />
     <!-- <div class="analyze">
       <Analyze @result="handleResult" class="" />
@@ -38,23 +38,24 @@
 
 import Analyze from '@/components/Recorder/Analyze.vue';
 import ItemList from '@/components/ItemList';
-import Categories from '@/components/Chips/Categories.vue';
 import ChartVue from '@/components/Charts/Chart.vue';
-import { mapGetters } from 'vuex';
 import DatePicker from '@/components/DatePicker.vue';
-import NavbarVue from '../components/Navbar.vue';
+import NavbarVue from '@/components/Navbar.vue';
+import CategoryPicker from '@/components/Categories/CategoryPicker.vue';
+import { mapGetters } from 'vuex';
+
 export default {
   components: {
     Analyze,
     ItemList,
-    Categories,
     ChartVue,
     DatePicker,
     NavbarVue,
+    CategoryPicker,
   },
   data() {
     return {
-      active: true,
+      active: false,
       item: {},
     };
   },

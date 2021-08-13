@@ -18,7 +18,7 @@ export default {
         name: 'מחשב חדש',
         category: 'אוכל בחוץ',
         timestamp: 1613123289783,
-        id: 'item-1kl23ygyh'
+        id: 'item-1kl23y4yh'
       },
       {
         str: 'קניתי עוד מחשב ב 400 שקל',
