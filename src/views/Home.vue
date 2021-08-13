@@ -25,11 +25,12 @@ export default {
     DatePicker,
     Navbar,
     AddItemDialog,
-    SvgUse
+    SvgUse,
   },
   data() {
     return {
-      boxSvg
+      boxSvg,
+      date: new Date()
     };
   },
   computed: {

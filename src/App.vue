@@ -60,4 +60,8 @@ body {
     }
   }
 }
+.vd-picker__controls-prev,
+.vd-picker__controls-next {
+  transform: rotate(-180deg);
+}
 </style>

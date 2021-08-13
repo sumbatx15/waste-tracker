@@ -8,6 +8,7 @@ export const getLocalStorageStrSize = () => {
   };
 };
 export const Item = item => {
+  console.log('item:', item)
   return {
     speechStr: '',
     id: '',

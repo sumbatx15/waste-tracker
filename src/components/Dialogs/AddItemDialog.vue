@@ -3,17 +3,17 @@
       <template #header>
         <h4 class="not-margin">הוסף מוצר</b></h4>
       </template>
-    <div v-if="speechAnalyzedItem">
+      <div class="add-item-dialog-content" v-if="speechAnalyzedItem">
+        <VueDatePicker v-model="speechAnalyzedItem.timestamp" />
         <div class="input-text">{{speechAnalyzedItem.str}}</div>
-      <div class="inputs"> 
-        <vs-input v-model="speechAnalyzedItem.name" />
-        <vs-input v-model="speechAnalyzedItem.amount" type="number"/>
-        <vs-input v-model="speechAnalyzedItem.cost" type="number" />
-        <vs-input v-model="speechAnalyzedItem.timestamp" type="date" />
-        <vs-input v-model="speechAnalyzedItem.category" />
-        <category-picker @select="handleCategorySelect"/>
+        <div class="inputs"> 
+          <vs-input v-model="speechAnalyzedItem.name" />
+          <vs-input v-model="speechAnalyzedItem.amount" type="number"/>
+          <vs-input v-model="speechAnalyzedItem.cost" type="number" />
+          <vs-input v-model="speechAnalyzedItem.category" />
+          <category-picker @select="handleCategorySelect"/>
+        </div>
       </div>
-    </div>
       <template #footer>
         <vs-button dark block @click="handleAdd">
           אישור
@@ -24,10 +24,12 @@
 
 <script>
 import CategoryPicker from '@/components/Categories/CategoryPicker.vue';
+import { VueDatePicker } from '@mathieustan/vue-datepicker';
 import { mapGetters } from 'vuex';
 export default {
   components: {
     CategoryPicker,
+    VueDatePicker,
   },
   computed: {
     isOpen: {
@@ -58,4 +60,23 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" >
+.add-item-dialog-content{
+  display: flex;
+  width: 100%;
+  flex-flow: column;
+   .vs-input-content,
+   .vs-input-parent,
+    input{
+      width: 100%;
+    }
+  .inputs{
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+    gap: 0.5em;
+   
+  }
+  
+}
+</style>

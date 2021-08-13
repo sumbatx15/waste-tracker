@@ -49,6 +49,7 @@ export default {
   },
   created() {
     this.recognition = new window.webkitSpeechRecognition();
+    this.recognition.lang = 'he-IL'
     this.recognition.interimResults = true;
     this.recognition.continuous = false;
     this.recognition.maxAlternatives = 1;

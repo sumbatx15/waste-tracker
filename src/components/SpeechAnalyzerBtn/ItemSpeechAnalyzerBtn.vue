@@ -8,6 +8,7 @@
 import { mapMutations } from 'vuex';
 import { analyze } from './analyze';
 import SpeechAnalyzerBtn from './';
+import { Item } from '@/utils';
 export default {
   components: {
     SpeechAnalyzerBtn
@@ -20,11 +21,12 @@ export default {
     },
     handleTranscript({ transcript, isFinal }) {
       if (!isFinal) return;
-      const item = analyze(transcript) || {};
-      const isValidItem = item.name && item.cost;
-      console.count('asd');
+      const analyzedItem = analyze(transcript) || {};
+      const isValidItem = analyzedItem.name && analyzedItem.cost;
+      if (!isValidItem) return;
 
-      isValidItem && this.handleAnalyzedItem(item);
+      const item = new Item({ ...analyzedItem, speechStr: analyzedItem.str });
+      this.handleAnalyzedItem(item);
     }
   }
 };
