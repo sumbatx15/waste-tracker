@@ -4,6 +4,7 @@ import Home from '../views/Home.vue';
 import Categories from '../views/Categories';
 import CategoryView from '../views/Categories/views/CategoryView.vue';
 import DefaultView from '@/views/DefaultView';
+import { HomeIcon, GridIcon } from 'vue-feather-icons';
 
 Vue.use(VueRouter);
 
@@ -11,11 +12,17 @@ const routes = [
   {
     name: 'Home',
     path: '/',
-    component: Home
+    component: Home,
+    meta: {
+      iconCmp: HomeIcon
+    }
   },
   {
     path: '/categories',
-    component: Categories
+    component: Categories,
+    meta: {
+      iconCmp: GridIcon
+    }
   },
   {
     name: 'Category View',

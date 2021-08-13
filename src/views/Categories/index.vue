@@ -1,6 +1,11 @@
 <template>
-  <div class="p-catefories">
-    <div class="title">קטגוריות</div>
+  <div class="p-categories">
+    <div class="header">
+      <div class="title">
+        <component :is="$route.meta.iconCmp" stroke-width="1"></component>
+        <span>קטגוריות</span>
+      </div>
+    </div>
     <div class="content">
       <CategoryListItem
         @click="handleClick(category)"
@@ -19,42 +24,46 @@ import CategoryListItem from './components/CategoryListItem.vue';
 
 export default {
   components: {
-    CategoryListItem,
+    CategoryListItem
   },
   data() {
     return {
       icon: {},
-      color: '#1CA085',
+      color: '#1CA085'
     };
   },
   computed: {
     ...mapGetters(['categories']),
     colors() {
       return palettes.slice(0, 7); //[palettes[0], palettes[1], palettes[2]];
-    },
+    }
   },
   methods: {
     handleClick(category) {
-      console.log('category:', category)
       this.$router.push({ name: 'Category View', params: { id: category.id } });
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-.p-catefories {
+.p-categories {
   display: flex;
   flex-flow: column;
   position: relative;
-  .title {
-    position: sticky;
-    top: 0;
-    font-size: 1.2rem;
-    font-weight: bold;
-    text-align: center;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.253);
+  .header {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    text-align: start;
+    .title {
+      font-size: 1rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
   }
+
   .content {
     padding: 20px;
     flex: 1;

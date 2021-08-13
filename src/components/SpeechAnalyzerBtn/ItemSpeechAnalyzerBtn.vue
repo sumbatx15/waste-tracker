@@ -13,15 +13,16 @@ export default {
     SpeechAnalyzerBtn
   },
   methods: {
-    ...mapMutations(['setSpeechAnalyzedItem', 'setShowItemDialog']),
+    ...mapMutations(['setSpeechAnalyzedItem', 'setShowAddItemDialog']),
     handleAnalyzedItem(item) {
       this.setSpeechAnalyzedItem(item);
-      this.setShowItemDialog(true);
+      this.setShowAddItemDialog(true);
     },
     handleTranscript({ transcript, isFinal }) {
       if (!isFinal) return;
       const item = analyze(transcript) || {};
       const isValidItem = item.name && item.cost;
+      console.count('asd');
 
       isValidItem && this.handleAnalyzedItem(item);
     }

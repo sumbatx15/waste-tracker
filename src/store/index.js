@@ -14,10 +14,10 @@ export default window.store = new Vuex.Store({
   },
   plugins: [
     // createPersistedState(),
-    store => {
-      store.subscribe(() => {
-        store.dispatch('updateSocalStorageSize');
-      });
-    }
+    // store => {
+    //   store.subscribe(() => {
+    //     store.commit('updateLocalStorageSize');
+    //   });
+    // }
   ]
 });

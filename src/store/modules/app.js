@@ -10,12 +10,13 @@ export default {
       return `${kb.toFixed(2)} ${affix}`;
     }
   },
-  actions: {
-    setShowItemDialog(state, isOpen) {
-      state.setShowItemDialog = isOpen;
+  mutations: {
+    setShowAddItemDialog(state, isOpen) {
+      state.showAddItemDialog = isOpen;
     },
-    updateSocalStorageSize(state) {
-      state.localStorageSize = getLocalStorageStrSize();
+    updateLocalStorageSize(state) {
+      // state.localStorageSize = getLocalStorageStrSize();
+      // TODO: this repeats infinite times
     }
   }
 };

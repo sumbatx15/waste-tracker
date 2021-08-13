@@ -7,3 +7,15 @@ export const getLocalStorageStrSize = () => {
     affix: megaBytes >= 1 ? 'MB' : 'KB'
   };
 };
+export const Item = item => {
+  return {
+    speechStr: '',
+    id: '',
+    cost: 0,
+    amount: 1,
+    name: '',
+    categoryId: '',
+    timestamp: new Date(),
+    ...item
+  };
+};

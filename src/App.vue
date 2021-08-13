@@ -1,86 +1,19 @@
 <template>
   <div id="app">
-    <!-- <CategoryIconAnimation v-if="showIconAnimation" />
-    <nav class="nav">
-      <router-link to="/">Home</router-link>
-      <router-link to="/categories">Categories</router-link>
-      <router-link to="/category-view">Category view</router-link>
-    </nav> -->
-    <transition
-      @before-enter="beforeEnter"
-      @enter="enter"
-      @after-enter="afterEnter"
-      @enter-cancelled="enterCancelled"
-      @before-leave="beforeLeave"
-      @leave="leave"
-      @after-leave="afterLeave"
-      @leave-cancelled="leaveCancelled"
-      mode="out-in"
-    >
+    <add-item-dialog />
+    <transition-page>
       <router-view class="view"></router-view>
-    </transition>
+    </transition-page>
+    <navbar />
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import TransitionPage from './components/Animation/TransitionPage.vue';
+import AddItemDialog from './components/Dialogs/AddItemDialog.vue';
+import Navbar from './components/Navbar.vue';
 export default {
-  computed: {
-    ...mapGetters(['showIconAnimation'])
-  },
-  methods: {
-    beforeEnter: function(el) {
-      el.style.position = 'fixed';
-      el.style.width = '100vw';
-      el.style.height = '100vh';
-      el.style.opacity = '0';
-      el.style.transition = 'opacity 200ms';
-      // ...
-    },
-    // the done callback is optional when
-    // used in combination with CSS
-    enter: function(el, done) {
-      done();
-      el.style.opacity = '1';
-      setTimeout(done, 200);
-    },
-    afterEnter: function(el) {
-      el.style.position = '';
-      // ...
-    },
-    enterCancelled: function(el) {
-      // ...
-    },
-
-    // --------
-    // LEAVING
-    // --------
-
-    beforeLeave: function(el) {
-      this.$anime({
-        targets: el,
-        opacity: [1, 0],
-        duration: 200,
-        easing: 'linear'
-      });
-
-      // ...
-    },
-    // the done callback is optional when
-    // used in combination with CSS
-    leave: function(el, done) {
-      setTimeout(done, 200);
-    },
-    afterLeave: function(el) {
-      el.style.position = '';
-
-      // ...
-    },
-    // leaveCancelled only available with v-show
-    leaveCancelled: function(el) {
-      // ...
-    }
-  }
+  components: { Navbar, TransitionPage, AddItemDialog }
 };
 </script>
 

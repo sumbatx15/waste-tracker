@@ -1,27 +1,33 @@
 <template>
-  <nav class="navbar">
-    <fa icon="bars" />
+  <nav class="navbar" dir="ltr">
+    <router-link class="link" to="/">
+      <HomeIcon />
+    </router-link>
     <ItemSpeechAnalyzerBtn
       style="--fs: 0.62rem"
       @item="setSpeechAnalyzedItem"
     />
-    <fa icon="check" />
+    <router-link class="link" to="/categories">
+      <GridIcon stroke-width="0.5" />
+    </router-link>
   </nav>
 </template>
 
 <script>
 import { mapMutations } from 'vuex';
 import ItemSpeechAnalyzerBtn from './SpeechAnalyzerBtn/ItemSpeechAnalyzerBtn.vue';
-
+import { GridIcon, HomeIcon } from 'vue-feather-icons';
 export default {
   components: {
-    ItemSpeechAnalyzerBtn
+    ItemSpeechAnalyzerBtn,
+    GridIcon,
+    HomeIcon
   },
   methods: {
-    ...mapMutations(['setSpeechAnalyzedItem', 'setShowItemDialog']),
+    ...mapMutations(['setSpeechAnalyzedItem', 'setShowAddItemDialog']),
     handleSpeechAnalyedItem(item) {
       this.setSpeechAnalyzedItem(item);
-      this.setShowItemDialog(true);
+      this.setShowAddItemDialog(true);
     }
   }
 };
@@ -32,13 +38,27 @@ export default {
   position: sticky;
   width: 100%;
   box-sizing: border-box;
-  padding: 0rem 1.5rem 0.5rem;
+  padding: 0 0 0.5rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   font-size: 1.5rem;
-  > * {
-    // border: 1px solid red;
+  .link {
+    padding: 1em;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    svg {
+      color: white;
+      opacity: 0.7;
+      stroke-width: 0.5;
+    }
+    &.router-link-exact-active {
+      svg {
+        opacity: 1;
+        stroke-width: 1;
+      }
+    }
   }
 }
 </style>

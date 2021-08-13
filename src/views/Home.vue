@@ -1,71 +1,32 @@
 <template>
   <div class="home">
-  <div class="storage-size">
-      {{displayStorageSize}} | 5 MB
-    </div>
+    <div class="storage-size">{{ displayStorageSize }} | 5 MB</div>
     <!-- <DatePicker/> -->
     <!-- <button @click="resetState" style="position: fixed; top:0; left: 0; margin: 1rem">Reset State</button> -->
-    <vs-dialog v-model="active">
-      <template #header>
-        <h4 class="not-margin">הוסף מוצר</b></h4>
-      </template>
-      <div class="input-text">{{item.str}}</div>
-      <div class="inputs"> 
-        <vs-input v-model="item.name"  />
-        <vs-input type="number" v-model="item.amount" />
-        <vs-input type="number" v-model="item.cost" />
-        <vs-input type="date" v-model="itemDate" />
-        <vs-input v-model="item.category" />
-        <category-picker @select="handleCategorySelect"/>
-      </div>
-      <template #footer>
-        <vs-button dark block @click="handleAdd">
-          אישור
-        </vs-button>
-      </template>
-    </vs-dialog>
-      <ChartVue />
-    <ItemList style="flex:1" />
-    <NavbarVue/>
+    <Chart />
+    <ItemList style="flex: 1" />
   </div>
 </template>
 
 <script>
 import ItemList from '@/components/ItemList';
-import ChartVue from '@/components/Charts/Chart.vue';
+import Chart from '@/components/Charts/Chart.vue';
 import DatePicker from '@/components/DatePicker.vue';
-import NavbarVue from '@/components/Navbar.vue';
-import CategoryPicker from '@/components/Categories/CategoryPicker.vue';
+import Navbar from '@/components/Navbar.vue';
 import { mapGetters } from 'vuex';
+import AddItemDialog from '../components/Dialogs/AddItemDialog.vue';
 
 export default {
   components: {
     ItemList,
-    ChartVue,
+    Chart,
     DatePicker,
-    NavbarVue,
-    CategoryPicker,
+    Navbar,
+    AddItemDialog
   },
-  data() {
-    return {
-      active: false,
-      item: {},
-    };
-  },
-  mounted() {
-    // this.$el.style.maxHeight = `${window.innerHeight}px`;
-  },
+
   computed: {
-    ...mapGetters(['displayStorageSize']),
-    itemDate: {
-      get() {
-        if (!this.item.timestamp) return;
-        return new Date(this.item.timestamp).toISOString().split('T')[0];
-      },
-      set(value) {
-        this.item.timestamp = new Date(value).getTime();
-      },
-    },
+    ...mapGetters(['displayStorageSize'])
   },
   methods: {
     handleCategorySelect(category) {
@@ -84,11 +45,11 @@ export default {
     handleAdd() {
       this.$store.dispatch('addItem', this.item);
       this.active = false;
-    },
-  },
+    }
+  }
 };
 </script>
-<style lang="scss" >
+<style lang="scss">
 .home {
   display: flex;
   flex-flow: column;
