@@ -1,23 +1,29 @@
 <template>
-  <SpeechAnalyzerBtn style="--fs: 0.8rem" @transcript="handleResult">
+  <SpeechAnalyzerBtn style="--fs: 0.8rem" @transcript="handleTranscript">
     <div slot="tooltip-placeholder">מקשיב..</div>
   </SpeechAnalyzerBtn>
 </template>
 
 <script>
-import SpeechAnalyzerBtn from './';
+import { mapMutations } from 'vuex';
 import { analyze } from './analyze';
+import SpeechAnalyzerBtn from './';
 export default {
   components: {
     SpeechAnalyzerBtn
   },
   methods: {
-    handleResult({ transcript, isFinal }) {
+    ...mapMutations(['setSpeechAnalyzedItem', 'setShowItemDialog']),
+    handleAnalyzedItem(item) {
+      this.setSpeechAnalyzedItem(item);
+      this.setShowItemDialog(true);
+    },
+    handleTranscript({ transcript, isFinal }) {
       if (!isFinal) return;
       const item = analyze(transcript) || {};
-      const validItem = item.name && item.cost;
+      const isValidItem = item.name && item.cost;
 
-      validItem && this.$emit('result', item);
+      isValidItem && this.handleAnalyzedItem(item);
     }
   }
 };

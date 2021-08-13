@@ -55,8 +55,9 @@ export default {
         category: 'כללי',
         timestamp: 1613134783811,
         id: 'item-1kl2astv4'
-      },
+      }
     ],
+    speechAnalyzedItem: null,
     range: {
       end_ts: 0,
       start_ts: 3613108914341
@@ -64,6 +65,7 @@ export default {
   },
   getters: {
     items: state => state.items,
+    speechAnalyzedItem: state => state.speechAnalyzedItem,
     rangeItems: state => {
       return state.items.filter(
         i =>
@@ -73,6 +75,9 @@ export default {
     }
   },
   mutations: {
+    setSpeechAnalyzedItem(state, item) {
+      state.speechAnalyzedItem = item;
+    },
     addItem(state, item) {
       item.id = uniqid('item-');
       state.items.push(item);
@@ -83,7 +88,7 @@ export default {
     }
   },
   actions: {
-    addItem({ state, commit }, item) {
+    addItem({ commit }, item) {
       commit('addItem', item);
       commit('addCategory', item.category);
     },

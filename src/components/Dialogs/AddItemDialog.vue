@@ -21,7 +21,12 @@
 </template>
 
 <script>
-export default {};
+import { mapState } from 'vuex';
+export default {
+  computed: {
+    ...mapState('app', ['showAddItemDialog']),
+  },
+};
 </script>
 
 <style lang="scss" scoped></style>

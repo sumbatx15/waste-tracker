@@ -26,15 +26,11 @@
     </vs-dialog>
       <ChartVue />
     <ItemList style="flex:1" />
-    <div class="analyze">
-      <ItemSpeechAnalyzerBtn @result="handleResult" class="" />
-    </div>
     <NavbarVue/>
   </div>
 </template>
 
 <script>
-import ItemSpeechAnalyzerBtn from '@/components/SpeechAnalyzerBtn/ItemSpeechAnalyzerBtn.vue';
 import ItemList from '@/components/ItemList';
 import ChartVue from '@/components/Charts/Chart.vue';
 import DatePicker from '@/components/DatePicker.vue';
@@ -44,7 +40,6 @@ import { mapGetters } from 'vuex';
 
 export default {
   components: {
-    ItemSpeechAnalyzerBtn,
     ItemList,
     ChartVue,
     DatePicker,
