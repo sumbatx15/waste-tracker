@@ -77,26 +77,15 @@
 
 <script>
 import CategoryIcon from '../../../components/common/CategoryIcon.vue';
-import ColorPicker from '../components/ColorPicker.vue';
 import IconPicker from '../components/IconPicker.vue';
 import CategoryMatches from '../../../components/Categories/CategoryMatches.vue';
 import VSwatches from 'vue-swatches';
 import 'vue-swatches/dist/vue-swatches.css';
-const mock = {
-  name: 'אוכל בחוץ',
-  color: '#FE4365',
-  icon: {
-    prefix: 'fas',
-    iconName: 'hamburger'
-  },
-  matches: ['חשבון חשמל', 'ארנונה', 'מים', 'שכר דירה']
-};
 
 export default {
   components: {
     CategoryIcon,
     IconPicker,
-    ColorPicker,
     VSwatches,
     CategoryMatches
   },
@@ -112,10 +101,7 @@ export default {
   },
   computed: {
     category() {
-      return (
-        this.$store.getters.categories.find(c => c.id == this.categoryId) ||
-        mock
-      );
+      return this.$store.getters.categories.find(c => c.id == this.categoryId);
     },
     hasName() {
       return this.category.name;
@@ -155,7 +141,9 @@ export default {
       this.collapse = true;
     },
     handleNameInput({ target: { innerText } }) {
+      console.log('innerText:', innerText);
       this.category.name = innerText;
+      console.log(' this.category:', this.category);
     }
   }
 };

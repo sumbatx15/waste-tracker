@@ -18,26 +18,26 @@ import CategoryIconVue from '../../../components/common/CategoryIcon.vue';
 export default {
   name: 'item-component',
   components: {
-    CategoryIconVue,
+    CategoryIconVue
   },
   props: {
     index: {
       // index of current item
-      type: Number,
+      type: Number
     },
     source: {
       // here is: {uid: 'unique_1', text: 'abc'}
       type: Object,
       default() {
         return {};
-      },
-    },
+      }
+    }
   },
   methods: {
     handleClick(icon) {
       this.$parent.$parent.$emit('icon-clicked', icon);
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>

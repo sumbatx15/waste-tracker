@@ -1,5 +1,10 @@
 <template>
-  <div v-bind="$attrs" v-on="$listeners" class="category-item" :style="{ '--color': category.color }">
+  <div
+    v-bind="$attrs"
+    v-on="$listeners"
+    class="category-item"
+    :style="{ '--color': category.color }"
+  >
     <div class="name-container" @click="collapse = !collapse">
       <CategoryIconVue style="--size: 1rem" :category="category" />
       <span class="name">{{ category.name }}</span>
@@ -19,14 +24,14 @@ export default {
     CategoryIconVue,
     IconPickerVue,
     Chip,
-    CategoryMatches,
+    CategoryMatches
   },
   props: {
-    category: Object,
+    category: Object
   },
   data() {
     return {
-      collapse: true,
+      collapse: true
     };
   },
   methods: {
@@ -34,8 +39,8 @@ export default {
       this.collapse = true;
       this.category.icon.iconName = iconName;
       this.category.icon.prefix = prefix;
-    },
-  },
+    }
+  }
 };
 </script>
 

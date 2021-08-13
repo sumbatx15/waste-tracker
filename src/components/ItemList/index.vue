@@ -49,7 +49,7 @@ export default {
         chunks[date].push(item);
         return chunks;
       }, {});
-    },
+    }
   },
   methods: {
     addSwipeRef(ref) {
