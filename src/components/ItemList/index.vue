@@ -1,5 +1,5 @@
 <template>
-  <div class="item-list">
+  <div class="item-list" v-if="hasItems">
     <RemovePrompt v-model="removePrompt" @yes="removeItem" />
     <div
       class="group"
@@ -17,21 +17,29 @@
       />
     </div>
   </div>
+  <div class="empty-list" v-else>
+    <svg-use :src="boxSvg" svgId="box" height="150" stroke-width="0.1" />
+    <div>אין עדיין מוצרים</div>
+  </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
+import boxSvg from '@/assets/icons/box.svg';
 import Item from './Item.vue';
 import moment from 'moment-with-locales-es6';
 import RemovePrompt from './RemovePrompt.vue';
+import SvgUse from '../common/SvgUse.vue';
 moment.locale('he');
 export default {
   components: {
     Item,
-    RemovePrompt
+    RemovePrompt,
+    SvgUse
   },
   data() {
     return {
+      boxSvg,
       removePrompt: false,
       itemToRemove: null,
       swipeRefs: []
@@ -39,8 +47,11 @@ export default {
   },
   computed: {
     ...mapGetters(['items', 'rangeItems']),
+    hasItems() {
+      return this.items.length;
+    },
     itemsSortedByDate() {
-      return this.rangeItems.sort((a, b) => b.timestamp - a.timestamp);
+      return this.rangeItems.slice().sort((a, b) => b.timestamp - a.timestamp);
     },
     itemsChunksByDay() {
       return this.itemsSortedByDate.reduce((chunks, item) => {
@@ -93,11 +104,13 @@ export default {
 
 <style lang="scss" scoped>
 .item-list {
-  position: relative;
-  overflow-x: hidden;
-  overflow-y: auto;
-  max-width: 100%;
+  box-sizing: border-box;
   width: 100%;
+  max-width: 100%;
+  position: relative;
+  // overflow-x: hidden;
+  // overflow-y: auto;
+  overflow: visible;
   border-radius: 15px;
   > *:not(:last-child) {
     margin-bottom: 5px;
@@ -124,5 +137,10 @@ export default {
       margin-bottom: 5px;
     }
   }
+}
+.empty-list {
+  font-weight: bold;
+  font-size: 25px;
+  text-align: center;
 }
 </style>

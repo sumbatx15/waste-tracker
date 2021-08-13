@@ -1,5 +1,5 @@
 <template>
-  <div style="overflow-y: auto;">
+  <div style="overflow-y: auto">
     <slot></slot>
   </div>
 </template>

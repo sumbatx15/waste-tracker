@@ -13,10 +13,12 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { StreamlineIcon } from '@streamlinehq/streamline-wrapper-vue';
 library.add(fas);
 library.add(fab);
 
 Vue.component('fa', FontAwesomeIcon);
+Vue.component('streamline-icon', StreamlineIcon);
 Vue.use(Prompt);
 Vue.use(VueAnime);
 Vue.use(Vuesax, {

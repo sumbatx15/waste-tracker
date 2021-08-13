@@ -3,8 +3,8 @@
     <div class="storage-size">{{ displayStorageSize }} | 5 MB</div>
     <!-- <DatePicker/> -->
     <!-- <button @click="resetState" style="position: fixed; top:0; left: 0; margin: 1rem">Reset State</button> -->
-    <Chart />
-    <ItemList style="flex: 1" />
+    <chart />
+    <item-list class="items-list" />
   </div>
 </template>
 
@@ -15,6 +15,8 @@ import DatePicker from '@/components/DatePicker.vue';
 import Navbar from '@/components/Navbar.vue';
 import { mapGetters } from 'vuex';
 import AddItemDialog from '../components/Dialogs/AddItemDialog.vue';
+import boxSvg from '@/assets/icons/box.svg';
+import SvgUse from '../components/common/SvgUse.vue';
 
 export default {
   components: {
@@ -22,9 +24,14 @@ export default {
     Chart,
     DatePicker,
     Navbar,
-    AddItemDialog
+    AddItemDialog,
+    SvgUse
   },
-
+  data() {
+    return {
+      boxSvg
+    };
+  },
   computed: {
     ...mapGetters(['displayStorageSize'])
   },
@@ -57,14 +64,6 @@ export default {
   box-sizing: border-box;
   justify-content: center;
   align-items: center;
-  .analyze {
-    flex: 0 0 96px;
-    padding: 0;
-    box-sizing: border-box;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
   .storage-size {
     direction: ltr;
     position: absolute;
@@ -74,19 +73,12 @@ export default {
     font-size: 0.8em;
     color: rgba(255, 255, 255, 0.466);
   }
-  & > :last-child {
-  }
-  .input-text {
-    text-align: center;
-    margin-bottom: 10px;
-  }
-  .inputs {
-    > * {
-      > .vs-input-content > input {
-        width: 100%;
-      }
-      width: 100%;
-      margin-bottom: 10px;
+  .items-list {
+    flex: 1;
+    padding: 0 1em;
+    overflow: auto;
+    &::-webkit-scrollbar {
+      display: none;
     }
   }
 }
