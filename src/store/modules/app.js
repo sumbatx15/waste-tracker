@@ -1,24 +1,21 @@
-const getSize = () => {
-    const size = new TextEncoder().encode(JSON.stringify(localStorage)).length
-    const kiloBytes = size / 1024;
-    const megaBytes = kiloBytes / 1024;
-    return {
-        kb: kiloBytes,
-        affix: megaBytes >= 1 ? 'MB' : 'KB'
-    }
-}
+import { getLocalStorageStrSize } from '@/utils';
+
 export default {
-    state: {
-        localStorageSize: getSize()
+  state: {
+    localStorageSize: getLocalStorageStrSize(),
+    showAddItemDialog: false
+  },
+  getters: {
+    displayStorageSize: ({ localStorageSize: { kb, affix } }) => {
+      return `${kb.toFixed(2)} ${affix}`;
+    }
+  },
+  actions: {
+    setShowItemDialog(state, isOpen) {
+      state.setShowItemDialog = isOpen;
     },
-    getters: {
-        displayStorageSize: ({ localStorageSize: { kb, affix } }) => {
-            return `${kb.toFixed(2)} ${affix}`;
-        }
-    },
-    actions: {
-        updateSocalStorageSize(state) {
-            state.localStorageSize = getSize();
-        }
-    },
+    updateSocalStorageSize(state) {
+      state.localStorageSize = getLocalStorageStrSize();
+    }
+  }
 };

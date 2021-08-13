@@ -1,17 +1,15 @@
 <template>
-  <Recorder style="--fs:0.8rem" @transcript="handleResult">
-    <div slot="tooltip-placeholder">
-      מקשיב..
-    </div>
-  </Recorder>
+  <SpeechAnalyzerBtn style="--fs: 0.8rem" @transcript="handleResult">
+    <div slot="tooltip-placeholder">מקשיב..</div>
+  </SpeechAnalyzerBtn>
 </template>
 
 <script>
-import Recorder from './';
+import SpeechAnalyzerBtn from './';
 import { analyze } from './analyze';
 export default {
   components: {
-    Recorder
+    SpeechAnalyzerBtn
   },
   methods: {
     handleResult({ transcript, isFinal }) {

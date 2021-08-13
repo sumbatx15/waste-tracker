@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     handleClick() {
-      // if (!this.routeOnClick) return;
+      if (!this.routeOnClick) return;
       this.$store.commit('setAnimateStart', {
         el: this.$el,
         clientRect: this.$el.getBoundingClientRect()

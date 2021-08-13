@@ -11,10 +11,8 @@
           :class="{ active: tooltip.isValidItem }"
         >
           <span v-if="tooltip.message">{{ tooltip.message }}</span>
-          <span v-else style="color:grey">
-            <slot name="tooltip-placeholder">
-              מה קנית?
-            </slot>
+          <span v-else style="color: grey">
+            <slot name="tooltip-placeholder">{{ placeholder }}</slot>
           </span>
         </div>
       </transition>
@@ -25,14 +23,19 @@
       :class="['mic', { active: isRecoding }]"
     >
       <div class="circle"></div>
-      <i class="fas fa-microphone" style="z-index: 1;"></i>
+      <i class="fas fa-microphone" style="z-index: 1"></i>
     </div>
   </div>
 </template>
 
 <script>
-import { analyze } from './analyze';
 export default {
+  props: {
+    placeholder: {
+      type: String,
+      default: 'מה קנית?'
+    }
+  },
   data() {
     return {
       isRecoding: false,
@@ -106,7 +109,7 @@ $success: rgb(24, 187, 24);
     transform: translateY(-100%);
     position: absolute;
     .tooltip {
-      font-size: .8rem;
+      font-size: 0.8rem;
       padding: 3px 15px;
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
       border-radius: 50px;

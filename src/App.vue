@@ -23,12 +23,8 @@
 </template>
 
 <script>
-// import CategoryIconAnimation from '@/components/Animate/CategoryIcon';
 import { mapGetters } from 'vuex';
 export default {
-  // components: {
-  //   CategoryIconAnimation
-  // },
   computed: {
     ...mapGetters(['showIconAnimation'])
   },

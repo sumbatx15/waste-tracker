@@ -2,7 +2,7 @@
   <SwipeOut ref="swipe" :threshold="10" @update:revealed="handleReveal">
     <div class="item" :style="style" @click="handleClick">
       <div class="name">
-        <CategoryIcon  :category="category" />
+        <CategoryIcon routeOnClick :category="category" />
         <div>
           <span>{{ item.name }}</span>
         </div>
