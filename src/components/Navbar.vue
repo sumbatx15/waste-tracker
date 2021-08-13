@@ -1,18 +1,18 @@
 <template>
   <nav class="navbar">
-    <fa  icon="bars" />
-    <AnalyzeVue  style="--fs: 0.62rem" />
-    <fa  icon="check" />
+    <fa icon="bars" />
+    <Analyze style="--fs: 0.62rem" @result="handleResult" />
+    <fa icon="check" />
   </nav>
 </template>
 
 <script>
-import AnalyzeVue from './Recorder/Analyze.vue';
+import Analyze from './Recorder/ItemSpeechAnalyzer.vue';
 
 export default {
   components: {
-    AnalyzeVue,
-  },
+    Analyze
+  }
 };
 </script>
 
