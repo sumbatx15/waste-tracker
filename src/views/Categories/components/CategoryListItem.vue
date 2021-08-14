@@ -14,10 +14,10 @@
 </template>
 
 <script>
-import Chip from '@/components/Chips/Chip.vue';
-import CategoryIconVue from '@/components/common/CategoryIcon.vue';
-import IconPickerVue from './IconPicker.vue';
-import CategoryMatches from '../../../components/Categories/CategoryMatches.vue';
+import Chip from "@/components/Chips/Chip.vue";
+import CategoryIconVue from "@/components/common/CategoryIcon.vue";
+import IconPickerVue from "./IconPicker.vue";
+import CategoryMatches from "../../../components/Categories/CategoryMatches.vue";
 
 export default {
   components: {

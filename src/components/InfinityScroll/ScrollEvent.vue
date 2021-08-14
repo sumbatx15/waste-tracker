@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  name: 'InfinityScroll',
+  name: "InfinityScroll",
   props: {
     isFinished: Boolean,
     bottomOffset: {
@@ -39,16 +39,16 @@ export default {
       const bottomOffest = scrollHeight - (clientHeight + scrollTop);
 
       if (bottomOffest <= this.bottomOffset) {
-        this.$emit('scrolledToBottom');
+        this.$emit("scrolledToBottom");
       }
     },
     addListeners() {
       const infinity = this.$refs.container;
-      return infinity.addEventListener('scroll', this.handleScroll);
+      return infinity.addEventListener("scroll", this.handleScroll);
     },
     removeListeners() {
       const infinity = this.$refs.container;
-      return infinity.removeEventListener('scroll', this.handleScroll);
+      return infinity.removeEventListener("scroll", this.handleScroll);
     }
   }
 };

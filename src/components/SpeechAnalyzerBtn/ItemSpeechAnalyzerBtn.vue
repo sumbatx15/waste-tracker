@@ -5,16 +5,17 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
-import { analyze } from './analyze';
-import SpeechAnalyzerBtn from './';
-import { Item } from '@/utils';
+import { mapActions, mapMutations } from "vuex";
+import { analyze } from "./analyze";
+import SpeechAnalyzerBtn from "./";
+import { Item } from "@/utils";
 export default {
   components: {
     SpeechAnalyzerBtn
   },
   methods: {
-    ...mapMutations(['setSpeechAnalyzedItem', 'setShowAddItemDialog']),
+    ...mapMutations(["setShowAddItemDialog"]),
+    ...mapActions(["setSpeechAnalyzedItem"]),
     handleAnalyzedItem(item) {
       this.setSpeechAnalyzedItem(item);
       this.setShowAddItemDialog(true);

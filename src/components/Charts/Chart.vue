@@ -1,5 +1,5 @@
 <template>
-  <div class="chart-container" :style="styleSize">
+  <div v-if="hasItems" class="chart-container" :style="styleSize">
     <div class="chart-content">
       <span class="small">Total spend</span>
       <animated-number
@@ -17,10 +17,10 @@
 </template>
 
 <script>
-import * as echarts from 'echarts';
-import AnimatedNumber from 'animated-number-vue';
-import generateOptions from './options';
-import { mapGetters } from 'vuex';
+import * as echarts from "echarts";
+import AnimatedNumber from "animated-number-vue";
+import generateOptions from "./options";
+import { mapGetters } from "vuex";
 export default {
   props: {
     width: {
@@ -41,7 +41,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['rangeItems', 'categories']),
+    ...mapGetters(["rangeItems", "categories"]),
+    hasItems() {
+      return this.rangeItems.length;
+    },
     totalSpend() {
       return this.rangeItems.reduce((acc, item) => {
         return acc + item.cost;
@@ -66,8 +69,8 @@ export default {
     },
     styleSize() {
       return {
-        minHeight: this.height + 'px',
-        minWidth: '100%' //this.width + 'px',
+        minHeight: this.height + "px",
+        minWidth: "100%" //this.width + 'px',
         // height: this.height + 'px',
         // width: this.width + 'px'
       };
@@ -75,10 +78,10 @@ export default {
   },
   mounted() {
     this.initChart();
-    window.addEventListener('resize', this.initChart);
+    window.addEventListener("resize", this.initChart);
   },
   beforeDestroy() {
-    window.removeEventListener('resize', this.initChart);
+    window.removeEventListener("resize", this.initChart);
 
     if (!this.chart) return;
     this.chart.dispose();
@@ -86,7 +89,7 @@ export default {
   },
   methods: {
     handleEasing(...args) {
-      console.log('args:', args);
+      console.log("args:", args);
     },
     formatTotalSpend(value) {
       return `₪${value.toFixed(0)}`;

@@ -1,21 +1,32 @@
+const uniqid = require("uniqid");
+
+export const createCategory = ({
+  name,
+  icon = { prefix: "fab", iconName: "buffer" },
+  color = "#339de8",
+  match
+} = {}) => {
+  return { id: uniqid("cat-"), name, icon, color, match };
+};
+
 export const getLocalStorageStrSize = () => {
   const size = new TextEncoder().encode(JSON.stringify(localStorage)).length;
   const kiloBytes = size / 1024;
   const megaBytes = kiloBytes / 1024;
   return {
     kb: kiloBytes,
-    affix: megaBytes >= 1 ? 'MB' : 'KB'
+    affix: megaBytes >= 1 ? "MB" : "KB"
   };
 };
 export const Item = item => {
-  console.log('item:', item)
   return {
-    speechStr: '',
-    id: '',
+    speechStr: "",
+    id: "",
     cost: 0,
     amount: 1,
-    name: '',
-    categoryId: '',
+    name: "",
+    categoryId: "",
+    categoryName: "",
     timestamp: new Date(),
     ...item
   };

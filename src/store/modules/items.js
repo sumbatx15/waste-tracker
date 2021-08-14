@@ -1,63 +1,64 @@
-const uniqid = require('uniqid');
+const uniqid = require("uniqid");
+import { cloneDeep } from "lodash-es";
 const mockItems = [
   {
-    str: 'קניתי מחשב חדש 400 שקל',
+    str: "קניתי מחשב חדש 400 שקל",
     cost: 400,
     amount: 1,
-    name: 'מחשב חדש',
-    category: 'סיגריות',
+    name: "מחשב חדש",
+    category: "סיגריות",
     timestamp: 1613113289783,
-    id: 'item-1kl23ygyh'
+    id: "item-1kl23ygyh"
   },
   {
-    str: 'קניתי מחשב חדש 400 שקל',
+    str: "קניתי מחשב חדש 400 שקל",
     cost: 400,
     amount: 1,
-    name: 'מחשב חדש',
-    category: 'אוכל בחוץ',
+    name: "מחשב חדש",
+    category: "אוכל בחוץ",
     timestamp: 1613123289783,
-    id: 'item-1kl23y4yh'
+    id: "item-1kl23y4yh"
   },
   {
-    str: 'קניתי עוד מחשב ב 400 שקל',
+    str: "קניתי עוד מחשב ב 400 שקל",
     cost: 400,
     amount: 1,
-    name: 'עוד מחשב',
-    category: 'בילוי',
+    name: "עוד מחשב",
+    category: "בילוי",
     timestamp: 1613123829614,
-    id: 'item-1kl24a1xe'
+    id: "item-1kl24a1xe"
   },
   {
-    str: 'קניתי מיקרופון 400 שקל',
+    str: "קניתי מיקרופון 400 שקל",
     cost: 400,
     amount: 1,
-    name: 'מיקרופון',
-    category: 'חשבונות',
+    name: "מיקרופון",
+    category: "חשבונות",
     timestamp: 1613134772945,
-    id: 'item-1kl2aslhz'
+    id: "item-1kl2aslhz"
   },
   {
-    str: 'קניתי מיקרופון 400 שקל',
+    str: "קניתי מיקרופון 400 שקל",
     cost: 400,
     amount: 1,
-    name: 'מיקרופון',
-    category: 'דלק',
+    name: "מיקרופון",
+    category: "דלק",
     timestamp: 1613134779016,
-    id: 'item-1kl2asq3s'
+    id: "item-1kl2asq3s"
   },
   {
-    str: 'קניתי מחשב 400 שקל',
+    str: "קניתי מחשב 400 שקל",
     cost: 400,
     amount: 1,
-    name: 'מחשב',
-    category: 'כללי',
+    name: "מחשב",
+    category: "כללי",
     timestamp: 1613134783811,
-    id: 'item-1kl2astv4'
+    id: "item-1kl2astv4"
   }
 ];
 export default {
   state: {
-    items: mockItems,
+    items: [],
     speechAnalyzedItem: null,
     range: {
       end_ts: 0,
@@ -76,12 +77,10 @@ export default {
     }
   },
   mutations: {
-    setSpeechAnalyzedItem(state, item) {
-      state.speechAnalyzedItem = item;
-    },
     addItem(state, item) {
-      item.id = uniqid('item-');
-      state.items.push(item);
+      const clonedItem = cloneDeep(item);
+      clonedItem.id = uniqid("item-");
+      state.items.push(clonedItem);
     },
     removeItem(state, id) {
       const index = state.items.findIndex(i => i.id == id);
@@ -89,10 +88,12 @@ export default {
     }
   },
   actions: {
-    addItem({ commit }, item) {
-      commit('addItem', item);
-      commit('addCategory', item.category);
+    addItem({ commit, dispatch }, item) {
+      commit("addItem", item);
+      dispatch("setSpeechAnalyzedItem", null);
     },
-    findType({ state }, item) {}
+    setSpeechAnalyzedItem({ state }, item) {
+      state.speechAnalyzedItem = item;
+    }
   }
 };

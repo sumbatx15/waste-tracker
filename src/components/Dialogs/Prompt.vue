@@ -14,13 +14,13 @@
 export default {
   props: {
     title: {
-      default: 'מחיקה'
+      default: "מחיקה"
     },
     message: {
-      default: 'האם אתה בטוח שאתה רוצה למחוק?'
+      default: "האם אתה בטוח שאתה רוצה למחוק?"
     },
     type: {
-      default: 'danger'
+      default: "danger"
     }
   },
   computed: {

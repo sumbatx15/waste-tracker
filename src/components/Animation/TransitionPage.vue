@@ -12,17 +12,17 @@
 </template>
 
 <script>
-const DEFAULT_TRANSITION = 'fade';
-const DEFAULT_TRANSITION_MODE = 'out-in';
+const DEFAULT_TRANSITION = "fade";
+const DEFAULT_TRANSITION_MODE = "out-in";
 
 export default {
-  name: 'TransitionPage',
+  name: "TransitionPage",
   data() {
     return {
       prevHeight: 0,
       transitionName: DEFAULT_TRANSITION,
       transitionMode: DEFAULT_TRANSITION_MODE,
-      transitionEnterActiveClass: ''
+      transitionEnterActiveClass: ""
     };
   },
   created() {
@@ -32,22 +32,22 @@ export default {
         from.meta.transitionName ||
         DEFAULT_TRANSITION;
 
-      if (transitionName === 'slide') {
-        const toDepth = to.path.split('/').length;
-        const fromDepth = from.path.split('/').length;
-        transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left';
+      if (transitionName === "slide") {
+        const toDepth = to.path.split("/").length;
+        const fromDepth = from.path.split("/").length;
+        transitionName = toDepth < fromDepth ? "slide-right" : "slide-left";
       }
 
       this.transitionMode = DEFAULT_TRANSITION_MODE;
       this.transitionEnterActiveClass = `${transitionName}-enter-active`;
 
-      if (to.meta.transitionName === 'zoom') {
-        this.transitionMode = 'in-out';
-        this.transitionEnterActiveClass = 'zoom-enter-active';
-        document.body.style.overflow = 'hidden';
+      if (to.meta.transitionName === "zoom") {
+        this.transitionMode = "in-out";
+        this.transitionEnterActiveClass = "zoom-enter-active";
+        document.body.style.overflow = "hidden";
       }
 
-      if (from.meta.transitionName === 'zoom') {
+      if (from.meta.transitionName === "zoom") {
         this.transitionMode = null;
         this.transitionEnterActiveClass = null;
         document.body.style.overflow = null;
@@ -72,7 +72,7 @@ export default {
       });
     },
     afterEnter(element) {
-      element.style.height = 'auto';
+      element.style.height = "auto";
     }
   }
 };

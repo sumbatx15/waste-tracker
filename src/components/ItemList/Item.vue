@@ -26,41 +26,41 @@
 </template>
 
 <script>
-import { SwipeOut } from 'vue-swipe-actions';
-import 'vue-swipe-actions/dist/vue-swipe-actions.css';
-import moment from 'moment-with-locales-es6';
-import { mapGetters } from 'vuex';
-import CategoryIcon from '../common/CategoryIcon.vue';
+import { SwipeOut } from "vue-swipe-actions";
+import "vue-swipe-actions/dist/vue-swipe-actions.css";
+import moment from "moment-with-locales-es6";
+import { mapGetters } from "vuex";
+import CategoryIcon from "../common/CategoryIcon.vue";
 
 export default {
-  name: 'Item',
+  name: "Item",
   props: {
-    item: Object
+    item: Object,
   },
   components: { SwipeOut, CategoryIcon },
   data() {
     return {
-      isRevealed: false
+      isRevealed: false,
     };
   },
   computed: {
-    ...mapGetters(['categories']),
+    ...mapGetters(["categories"]),
     category() {
-      return this.categories.find(c => c.name == this.item.category);
+      return this.categories.find((c) => c.name == this.item.category);
     },
     style() {
       return {
-        borderRadius: this.isRevealed ? '0px' : ''
+        borderRadius: this.isRevealed ? "0px" : "",
       };
-    }
+    },
   },
   mounted() {
-    this.$emit('swipeRef', this.$refs.swipe);
+    this.$emit("swipeRef", this.$refs.swipe);
   },
   methods: {
     remove() {
       this.$confirm().then(() =>
-        this.$store.commit('removeItem', this.item.id)
+        this.$store.commit("removeItem", this.item.id)
       );
     },
     handleClick() {
@@ -68,14 +68,14 @@ export default {
     },
     handleReveal(dir) {
       this.isRevealed = !!dir;
-      this.isRevealed && this.$emit('hide-others-actions', this.$refs.swipe);
-    }
+      this.isRevealed && this.$emit("hide-others-actions", this.$refs.swipe);
+    },
   },
   filters: {
     fromNow(date) {
       return moment(date).fromNow();
-    }
-  }
+    },
+  },
 };
 </script>
 

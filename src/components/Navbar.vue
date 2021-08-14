@@ -14,9 +14,9 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
-import ItemSpeechAnalyzerBtn from './SpeechAnalyzerBtn/ItemSpeechAnalyzerBtn.vue';
-import { GridIcon, HomeIcon } from 'vue-feather-icons';
+import { mapActions, mapMutations } from "vuex";
+import ItemSpeechAnalyzerBtn from "./SpeechAnalyzerBtn/ItemSpeechAnalyzerBtn.vue";
+import { GridIcon, HomeIcon } from "vue-feather-icons";
 export default {
   components: {
     ItemSpeechAnalyzerBtn,
@@ -24,7 +24,8 @@ export default {
     HomeIcon
   },
   methods: {
-    ...mapMutations(['setSpeechAnalyzedItem', 'setShowAddItemDialog']),
+    ...mapMutations(["setShowAddItemDialog"]),
+    ...mapActions(["setSpeechAnalyzedItem"]),
     handleSpeechAnalyedItem(item) {
       this.setSpeechAnalyzedItem(item);
       this.setShowAddItemDialog(true);

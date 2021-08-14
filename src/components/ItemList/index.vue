@@ -19,19 +19,27 @@
   </div>
   <div class="empty-list" v-else>
     <svg-use :src="boxSvg" svgId="box" height="150" stroke-width="0.1" />
-    <div>אין עדיין מוצרים</div>
+    <div class="title">אין מוצרים בחודש זה</div>
+    <div class="sub-title">הוסף מוצר או החלף חודש</div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import boxSvg from '@/assets/icons/box.svg';
-import Item from './Item.vue';
-import moment from 'moment-with-locales-es6';
-import RemovePrompt from './RemovePrompt.vue';
-import SvgUse from '../common/SvgUse.vue';
-moment.locale('he');
+import { mapGetters } from "vuex";
+import boxSvg from "@/assets/icons/box.svg";
+import Item from "./Item.vue";
+import moment from "moment-with-locales-es6";
+import RemovePrompt from "./RemovePrompt.vue";
+import SvgUse from "../common/SvgUse.vue";
+
+moment.locale("he");
 export default {
+  props: {
+    items: {
+      type: Array,
+      default: () => []
+    }
+  },
   components: {
     Item,
     RemovePrompt,
@@ -46,9 +54,9 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['items', 'rangeItems']),
+    ...mapGetters(["rangeItems"]),
     hasItems() {
-      return this.items.length;
+      return this.rangeItems.length;
     },
     itemsSortedByDate() {
       return this.rangeItems.slice().sort((a, b) => b.timestamp - a.timestamp);
@@ -72,8 +80,8 @@ export default {
       // });
     },
     removeItem() {
-      this.$store.commit('removeItem', this.itemToRemove.id);
-      this.itemToRemove.id = '';
+      this.$store.commit("removeItem", this.itemToRemove.id);
+      this.itemToRemove.id = "";
     },
     promptRemoveItem(item) {
       this.itemToRemove = item;
@@ -83,18 +91,18 @@ export default {
   filters: {
     calendarDate(date) {
       return moment(date).calendar(null, {
-        sameDay: '[היום]',
-        lastDay: '[אתמול]',
-        lastWeek: '[יום] dddd DD/MM/YYYY',
-        sameElse: 'DD/MM/YYYY'
+        sameDay: "[היום]",
+        lastDay: "[אתמול]",
+        lastWeek: "[יום] dddd DD/MM/YYYY",
+        sameElse: "DD/MM/YYYY"
       });
     }
   },
   watch: {
-    'items.length'(current, prev) {
+    "items.length"(current, prev) {
       if (current > prev) {
         setTimeout(() => {
-          this.$el.scrollTo({ top: 0, behavior: 'smooth' });
+          this.$el.scrollTo({ top: 0, behavior: "smooth" });
         }, 0);
       }
     }
@@ -112,12 +120,15 @@ export default {
   // overflow-y: auto;
   overflow: visible;
   border-radius: 15px;
+
   > *:not(:last-child) {
     margin-bottom: 5px;
   }
+
   .group {
     display: flex;
     flex-flow: column;
+
     .header-date {
       position: sticky;
       z-index: 1;
@@ -130,17 +141,30 @@ export default {
       background: #2b2d30;
       padding: 0 12px;
     }
+
     .items {
       min-width: 100%;
     }
+
     > *:not(:last-child) {
       margin-bottom: 5px;
     }
   }
 }
+
 .empty-list {
-  font-weight: bold;
-  font-size: 25px;
   text-align: center;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  .title {
+    font-weight: bold;
+    font-size: 25px;
+  }
+  .sub-title {
+    max-width: 16em;
+    font-weight: 300;
+  }
 }
 </style>

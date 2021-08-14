@@ -1,10 +1,10 @@
-const tMain = 'white';
+const tMain = "white";
 export default data => {
   const mocData = [
-    { value: 40, name: 'Heir - 1' },
-    { value: 30, name: 'Heir - 2' },
-    { value: 23, name: 'Heir - 3' },
-    { value: 17, name: 'Heir - 4' }
+    { value: 40, name: "Heir - 1" },
+    { value: 30, name: "Heir - 2" },
+    { value: 23, name: "Heir - 3" },
+    { value: 17, name: "Heir - 4" }
   ];
   const sortedData = (data || mocData).sort(function(a, b) {
     return a.value - b.value;
@@ -13,7 +13,7 @@ export default data => {
   return {
     tooltip: {
       // trigger: 'item',
-      formatter: ''
+      formatter: ""
     },
 
     // visualMap: {
@@ -26,40 +26,38 @@ export default data => {
     // },
     series: [
       {
-        type: 'pie',
-        radius: ['51%', '65%'],
-        center: ['50%', '50%'],
+        type: "pie",
+        radius: ["51%", "65%"],
+        center: ["50%", "50%"],
         color: colors,
         label: {
-          overflow: 'break',
-          ellipsis: '',
+          overflow: "break",
+          ellipsis: "",
           textBorderWidth: 0,
           normal: {
-            formatter: '{title|{b}}\n{price|₪{c}}',
-            shadowColor: '#999',
+            formatter: "{title|{b}}\n{price|₪{c}}",
+            shadowColor: "#999",
             shadowBlur: 3,
             borderRadius: 4,
             rich: {
               container: {
-                backgroundColor: '#000',
+                backgroundColor: "#000",
                 padding: 5,
                 borderRadius: 5
               },
               title: {
-                fontFamily: 'arial',
-                align: 'center',
+                fontFamily: "arial",
+                align: "center",
                 color: tMain
               },
               price: {
-                overflow: 'break',
-                ellipsis: '',
+                overflow: "break",
+                ellipsis: "",
                 fontSize: 15,
                 textBorderWidth: 0,
-                fontWeight: 'bold',
-                align: 'center',
-                color: tMain,
-
-                overflow: 'break'
+                fontWeight: "bold",
+                align: "center",
+                color: tMain
               }
             }
           }
@@ -70,17 +68,17 @@ export default data => {
         //   smooth: 0.3
         // },
         data: sortedData,
-        roseType: 'radius',
+        roseType: "radius",
         itemStyle: {
           normal: {
             shadowBlur: 30,
-            shadowColor: 'rgba(0, 0, 0, 0.2)'
+            shadowColor: "rgba(0, 0, 0, 0.2)"
           }
         },
 
-        animationType: 'scale',
-        animationEasing: 'elasticOut',
-        animationDelay: function(idx) {
+        animationType: "scale",
+        animationEasing: "elasticOut",
+        animationDelay: function() {
           return Math.random() * 200;
         }
       }

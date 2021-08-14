@@ -18,9 +18,9 @@
 </template>
 
 <script>
-import palettes from 'nice-color-palettes';
-import { mapGetters } from 'vuex';
-import CategoryListItem from './components/CategoryListItem.vue';
+import palettes from "nice-color-palettes";
+import { mapGetters } from "vuex";
+import CategoryListItem from "./components/CategoryListItem.vue";
 
 export default {
   components: {
@@ -29,18 +29,18 @@ export default {
   data() {
     return {
       icon: {},
-      color: '#1CA085'
+      color: "#1CA085"
     };
   },
   computed: {
-    ...mapGetters(['categories']),
+    ...mapGetters(["categories"]),
     colors() {
       return palettes.slice(0, 7); //[palettes[0], palettes[1], palettes[2]];
     }
   },
   methods: {
     handleClick(category) {
-      this.$router.push({ name: 'Category View', params: { id: category.id } });
+      this.$router.push({ name: "Category View", params: { id: category.id } });
     }
   }
 };

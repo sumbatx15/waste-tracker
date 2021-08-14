@@ -11,89 +11,36 @@
       ></fa>
     </nav>
     <div class="content">
-      <div class="name">
-        <span
-          v-anime="{
-            opacity: [0, 1],
-            translateY: ['-20px', '0'],
-            duration: 500
-          }"
-          >קטגוריה</span
-        >
-        <input
-          v-anime="{
-            delay: 200,
-            translateY: ['50px', '0'],
-            opacity: [0, 1],
-            duration: 500,
-            easing: 'easeOutExpo'
-          }"
-          class="name-input"
-          v-model="category.name"
-          placeholder="הקלד שם.."
-        />
-      </div>
-      <div class="icon-preview">
-        <div class="icon" @click="collapse = !collapse">
-          <fa icon="image" />
-        </div>
-        <CategoryIcon
-          @mount="handleIconMount"
-          ref="categoryIcon"
-          :category="category"
-          @click="collapse = !collapse"
-        />
-        <div class="icon">
-          <fa icon="palette" />
-          <VSwatches
-            show-fallback
-            fallback-input-type="color"
-            popover-x="left"
-            v-model="category.color"
-            shapes="circles"
-          />
-        </div>
-      </div>
-      <IconPicker :collapse="collapse" @iconSelect="handleIconSelect" />
-      <div class="add-matches">
-        <input
-          type="text"
-          v-model="matcher"
-          placeholder="הוסף מזהים.."
-          @keypress.enter="addMatcher"
-        />
-        <category-matches
-          stagger
-          :animDelay="1000"
-          removable
-          @remove="handleRemoveMatch"
-          :category="category"
-          style="font-size: 1.1rem; justify-content: center"
-        />
-      </div>
+      <category-name-and-icon-controller :category="category" />
+      <matches-controller :category="category" />
+      <item-list />
     </div>
   </div>
 </template>
 
 <script>
-import CategoryIcon from '../../../components/common/CategoryIcon.vue';
-import IconPicker from '../components/IconPicker.vue';
-import CategoryMatches from '../../../components/Categories/CategoryMatches.vue';
-import VSwatches from 'vue-swatches';
-import 'vue-swatches/dist/vue-swatches.css';
+import CategoryIcon from "../../../components/common/CategoryIcon.vue";
+import IconPicker from "../components/IconPicker.vue";
+import VSwatches from "vue-swatches";
+import "vue-swatches/dist/vue-swatches.css";
+import ItemList from "@/components/ItemList";
+import MatchesController from "./MatchesController.vue";
+import CategoryNameAndIconController from "./CategoryNameAndIconController.vue";
 
 export default {
   components: {
     CategoryIcon,
     IconPicker,
     VSwatches,
-    CategoryMatches
+    ItemList,
+    MatchesController,
+    CategoryNameAndIconController
   },
   data() {
     return {
-      matcher: '',
+      matcher: "",
       collapse: true,
-      categoryId: ''
+      categoryId: ""
     };
   },
   created() {
@@ -110,29 +57,15 @@ export default {
       if (this.hasName) return;
       return {
         fontWeight: 400,
-        color: 'gray'
+        color: "gray"
       };
     }
   },
   methods: {
     handleIconMount(el) {
-      this.$store.commit('setAnimateEnd', {
+      this.$store.commit("setAnimateEnd", {
         el: el,
         clientRect: el.getBoundingClientRect()
-      });
-    },
-    addMatcher() {
-      this.$store.commit('addMatcher', {
-        id: this.category.id,
-        matcher: this.matcher
-      });
-      this.matcher = '';
-    },
-    handleRemoveMatch(matcher) {
-      console.log('matcher:', matcher);
-      this.$store.commit('removeMatcher', {
-        id: this.category.id,
-        matcher
       });
     },
     handleIconSelect({ iconName, prefix }) {
@@ -141,9 +74,9 @@ export default {
       this.collapse = true;
     },
     handleNameInput({ target: { innerText } }) {
-      console.log('innerText:', innerText);
+      console.log("innerText:", innerText);
       this.category.name = innerText;
-      console.log(' this.category:', this.category);
+      console.log(" this.category:", this.category);
     }
   }
 };
@@ -159,19 +92,23 @@ export default {
     justify-content: flex-end;
     font-size: 1.2rem;
     padding: 20px;
+
     svg {
       transform: scaleY(1.3);
     }
   }
+
   .content {
     display: flex;
     flex-flow: column;
     gap: 2rem;
-    .name {
+
+    > .name {
       display: flex;
       flex-flow: column;
       text-align: center;
       align-items: center;
+
       .name-input {
         text-align: center;
         background: transparent;
@@ -183,24 +120,29 @@ export default {
         color: white;
         margin-top: -0.3rem;
       }
+
       > * {
-        font-family: 'Assistant', sans-serif !important;
+        font-family: "Assistant", sans-serif !important;
       }
+
       > :first-child {
         font-size: 0.8rem;
       }
+
       > :last-child {
         font-weight: bold;
         line-height: 1;
         font-size: 2.2rem;
       }
     }
+
     .icon-preview {
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 3.35rem;
       gap: 0.7rem;
+
       .icon {
         display: flex;
         direction: ltr;
@@ -212,9 +154,11 @@ export default {
         border-radius: 50%;
         border: 2px solid rgba(255, 255, 255, 0.075);
         position: relative;
+
         .vue-swatches__trigger__wrapper {
           direction: ltr;
         }
+
         .vue-swatches__trigger {
           direction: ltr;
 
@@ -227,6 +171,7 @@ export default {
         }
       }
     }
+
     .add-matches {
       display: flex;
       flex-flow: column;

@@ -9,7 +9,7 @@ export default {
   props: {
     observeSelector: {
       type: String,
-      default: ':scope > *'
+      default: ":scope > *"
     }
   },
   data() {
@@ -20,13 +20,13 @@ export default {
   mounted() {
     const options = this.options || {
       root: this.$el,
-      rootMargin: '-30% 0px -30% 0px'
+      rootMargin: "-30% 0px -30% 0px"
     };
     this.observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) {
-        entry.target.className = 'animate__animated animate__pulse';
+        entry.target.className = "animate__animated animate__pulse";
       } else {
-        entry.target.className = '';
+        entry.target.className = "";
       }
     }, options);
     this.observerChildren();

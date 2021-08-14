@@ -12,23 +12,24 @@
 </template>
 
 <script>
-import Chip from '../Chips/Chip.vue';
+import Chip from "../Chips/Chip.vue";
+
 export default {
   props: {
     stagger: Boolean,
     animDelay: {
       type: Number,
-      default: () => 0,
+      default: () => 0
     },
     removable: Boolean,
     category: {
       type: Object,
-      default: () => ({}),
-    },
+      default: () => ({})
+    }
   },
   components: {
-    Chip,
-  },
+    Chip
+  }
 };
 </script>
 

@@ -33,7 +33,7 @@ export default {
   props: {
     placeholder: {
       type: String,
-      default: 'מה קנית?'
+      default: "מה קנית?"
     }
   },
   data() {
@@ -41,7 +41,7 @@ export default {
       isRecoding: false,
       tooltip: {
         show: false,
-        message: '',
+        message: "",
         isValidItem: false,
         timeout: 0
       }
@@ -49,13 +49,13 @@ export default {
   },
   created() {
     this.recognition = new window.webkitSpeechRecognition();
-    this.recognition.lang = 'he-IL'
+    this.recognition.lang = "he-IL";
     this.recognition.interimResults = true;
     this.recognition.continuous = false;
     this.recognition.maxAlternatives = 1;
-    this.recognition.addEventListener('result', this.onResult);
-    this.recognition.addEventListener('start', () => (this.isRecoding = true));
-    this.recognition.addEventListener('end', () => {
+    this.recognition.addEventListener("result", this.onResult);
+    this.recognition.addEventListener("start", () => (this.isRecoding = true));
+    this.recognition.addEventListener("end", () => {
       this.isRecoding = false;
       this.tooltip.isEnded = true;
       this.clearTooltip();
@@ -66,21 +66,21 @@ export default {
       if (this.isRecoding) return this.stop();
       this.recognition.start();
       this.tooltip.show = true;
-      this.tooltip.message = '';
+      this.tooltip.message = "";
       clearTimeout(this.tooltip.timeout);
     },
     stop() {
       this.recognition.stop();
       this.tooltip.show = false;
-      this.tooltip.message = '';
+      this.tooltip.message = "";
     },
     onResult(e) {
       const transcript = Array.from(e.results)
         .map(res => res[0])
         .map(res => res.transcript)
-        .join('');
+        .join("");
       this.tooltip.message = transcript;
-      this.$emit('transcript', { transcript, isFinal: e.results[0].isFinal });
+      this.$emit("transcript", { transcript, isFinal: e.results[0].isFinal });
     },
     clearTooltip() {
       clearTimeout(this.tooltip.timeout);

@@ -14,9 +14,9 @@
 </template>
 
 <script>
-import CategoryIconVue from '../../../components/common/CategoryIcon.vue';
+import CategoryIconVue from "../../../components/common/CategoryIcon.vue";
 export default {
-  name: 'item-component',
+  name: "item-component",
   components: {
     CategoryIconVue
   },
@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     handleClick(icon) {
-      this.$parent.$parent.$emit('icon-clicked', icon);
+      this.$parent.$parent.$emit("icon-clicked", icon);
     }
   }
 };

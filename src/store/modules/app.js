@@ -1,4 +1,4 @@
-import { getLocalStorageStrSize } from '@/utils';
+import { getLocalStorageStrSize } from "@/utils";
 
 export default {
   state: {

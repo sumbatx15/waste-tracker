@@ -28,10 +28,10 @@ function sortColors(colors) {
       distances.push([
         colors[i],
         colors[j],
-        colorDistance(colors[i], colors[j]),
+        colorDistance(colors[i], colors[j])
       ]);
   }
-  distances.sort(function (a, b) {
+  distances.sort(function(a, b) {
     return a[2] - b[2];
   });
 
@@ -66,19 +66,19 @@ function sortColors(colors) {
   // By now all colors should be in one cluster
   return lastCluster;
 }
-import colors from 'nice-color-palettes';
-import hexSorter from 'hexsorter';
+import colors from "nice-color-palettes";
+import hexSorter from "hexsorter";
 const palette = [...colors[0], ...colors[1], ...colors[2]];
-const sorted = hexSorter.sortColors(palette, 'mostSaturatedColor');
-const sorted2 = sortColors(palette, 'mostSaturatedColor');
-console.log('sorted:', sorted);
-console.log('sorted2:', sorted2)
+const sorted = hexSorter.sortColors(palette, "mostSaturatedColor");
+const sorted2 = sortColors(palette, "mostSaturatedColor");
+console.log("sorted:", sorted);
+console.log("sorted2:", sorted2);
 export default {
   data() {
     return {
-      sorted,
+      sorted
     };
-  },
+  }
 };
 </script>
 

@@ -1,10 +1,10 @@
-const WORDS = 'לי|היום|עכשיו|גם|אני|בבקשה';
+const WORDS = "לי|היום|עכשיו|גם|אני|בבקשה";
 const KEYWORDS = {
   ADD: `(?:(?:תוסיפי|תוסיף|${WORDS})(?:\\s))+`,
   PAID: `(?:(?:שילמתי|שלמתי|${WORDS})(?:\\s))+`,
   BOUGHT: `(?:(?:קניתי|${WORDS})(?:\\s))+`,
   ATE: `(?:(?:אכלתי|${WORDS})(?:\\s))+`,
-  GAVE: 'נתתי'
+  GAVE: "נתתי"
 };
 export const costReg = /(?:\s)(?:ב|שילמתי|נתתי|ב-)(?:\s?)(\d+)(?:\s?שקל|₪)*|(?:\s)(?:ב|שילמתי|נתתי|ב-)*(?:\s?)(\d+)(?:\s?שקל|₪)/;
 
@@ -19,7 +19,7 @@ export const getCost = str => {
       match: number
     };
   } else if (!cost && numbersCount > 1) {
-    return getCost(str.replace(/(?:\s?\d+\s\D+\s?)/, ''));
+    return getCost(str.replace(/(?:\s?\d+\s\D+\s?)/, ""));
   }
   return {
     cost: Number(cost),
@@ -37,7 +37,7 @@ const getFirstMatch = match => {
 const getItem = str => {
   return {
     amount: getNumber(str) || 1,
-    name: str.replace(/\d+/, '').trim()
+    name: str.replace(/\d+/, "").trim()
   };
 };
 const getNumber = str => {
@@ -46,17 +46,17 @@ const getNumber = str => {
 };
 export const removeCost = str => {
   return (costReg.test(str)
-    ? str.replace(costReg, '')
-    : str.replace(/\d+/g, '')
+    ? str.replace(costReg, "")
+    : str.replace(/\d+/g, "")
   ).trim();
 };
 const extract = ({ reg, str }) => {
   const numberCount = getNumbersCount(str);
   const startingIndex = str.search(reg);
-  const trimmedStr = ' ' + str.substring(startingIndex);
+  const trimmedStr = " " + str.substring(startingIndex);
   let cost = getCost(trimmedStr);
-  const itemGroup = trimmedStr.replace(cost.match, '').replace(reg, '');
-  console.log('itemGroup:', itemGroup);
+  const itemGroup = trimmedStr.replace(cost.match, "").replace(reg, "");
+  console.log("itemGroup:", itemGroup);
   const item = getItem(itemGroup);
   return {
     str: str,
@@ -72,7 +72,7 @@ export const analyze = str => {
   const regs = regEntries
     .map(([_, value]) => {
       const reg = new RegExp(value);
-      return { reg, match: reg.exec(str) || [''] };
+      return { reg, match: reg.exec(str) || [""] };
     })
     .sort((a, b) => {
       return b.match[0].length - a.match[0].length;

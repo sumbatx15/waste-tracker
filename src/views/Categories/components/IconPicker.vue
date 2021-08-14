@@ -15,34 +15,34 @@
 </template>
 
 <script>
-import { fas } from '@fortawesome/free-solid-svg-icons';
-import { fab } from '@fortawesome/free-brands-svg-icons';
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { fab } from "@fortawesome/free-brands-svg-icons";
 delete fab.faFontAwesomeLogoFull;
 delete fas.faFontAwesomeLogoFull;
 
-import VirtualList from 'vue-virtual-scroll-list';
-import CategoryIconVue from '../../../components/common/CategoryIcon.vue';
-import VirtualListIconVue from './VirtualListIcon.vue';
-import { chunk } from 'lodash-es';
+import VirtualList from "vue-virtual-scroll-list";
+import CategoryIconVue from "../../../components/common/CategoryIcon.vue";
+import VirtualListIconVue from "./VirtualListIcon.vue";
+import { chunk } from "lodash-es";
 
 export default {
   components: {
     CategoryIconVue,
-    VirtualList,
+    VirtualList
   },
   props: {
     color: {
       type: String,
-      default: () => '#6C838C',
+      default: () => "#6C838C"
     },
-    collapse: Boolean,
+    collapse: Boolean
   },
   data() {
     return {
       VirtualListIconVue,
       icons: { ...fas, ...fab },
-      ignoreIcons: ['font-awesome'],
-      search: '',
+      ignoreIcons: ["font-awesome"],
+      search: ""
     };
   },
   mounted() {
@@ -52,18 +52,18 @@ export default {
     filteredIcons() {
       const icons = Object.values(this.icons);
       const filtered = icons.filter(
-        (i) =>
+        i =>
           i.iconName.includes(this.search) &&
           !this.ignoreIcons.includes(i.iconName)
       );
       return chunk(filtered, 5).map((icons, i) => ({ id: i, icons }));
-    },
+    }
   },
   methods: {
     handleIconSelect(icon) {
-      this.$emit('iconSelect', icon);
-    },
-  },
+      this.$emit("iconSelect", icon);
+    }
+  }
 };
 </script>
 
@@ -85,9 +85,9 @@ export default {
   .sreach {
     display: flex;
     justify-content: center;
-    input{
+    input {
       direction: ltr;
-      border:none;
+      border: none;
       border-bottom: 2px solid rgba(255, 255, 255, 0.096);
       background: transparent;
       color: white;

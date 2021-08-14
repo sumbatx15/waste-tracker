@@ -10,14 +10,14 @@
 <script>
 export default {
   props: {
-    removable: Boolean,
+    removable: Boolean
   },
   methods: {
     handleClick() {
       if (!this.removable) return;
-      this.$confirm().then(() => this.$emit('remove'));
-    },
-  },
+      this.$confirm().then(() => this.$emit("remove"));
+    }
+  }
 };
 </script>
 

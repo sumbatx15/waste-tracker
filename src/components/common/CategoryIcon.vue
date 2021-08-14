@@ -23,12 +23,12 @@ export default {
   methods: {
     handleClick() {
       if (!this.routeOnClick) return;
-      this.$store.commit('setAnimateStart', {
+      this.$store.commit("setAnimateStart", {
         el: this.$el,
         clientRect: this.$el.getBoundingClientRect()
       });
       this.$router.push({
-        name: 'Category View',
+        name: "Category View",
         params: { id: this.category.id }
       });
     }

@@ -19,15 +19,15 @@
 </template>
 
 <script>
-import Observer from './Observer';
+import Observer from "./Observer";
 export default {
-  name: 'InfinityScroll',
+  name: "InfinityScroll",
   props: {
     isFinished: Boolean,
     intersectionOptions: Object,
     bottomOffset: {
       type: String,
-      default: '500px'
+      default: "500px"
     }
   },
   components: { Observer },
@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     handleIntersect() {
-      return this.$emit('scrolledToBottom');
+      return this.$emit("scrolledToBottom");
     }
   }
 };
