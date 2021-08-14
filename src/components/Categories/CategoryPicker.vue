@@ -18,30 +18,29 @@ import { mapGetters } from "vuex";
 import CategoryIcon from "@/components/common/CategoryIcon.vue";
 export default {
   props: {
-    value: String
+    value: String,
   },
   components: {
-    CategoryIcon
+    CategoryIcon,
   },
   computed: {
-    ...mapGetters(["categories"])
+    ...mapGetters(["categories"]),
   },
   methods: {
     handleClick(category) {
       console.log("category:", category);
       this.$emit("input", category.name);
       this.$emit("select", category);
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .list {
-  > *:not(:last-child) {
-    margin-inline-end: 5px;
-    margin-block-end: 5px;
-  }
+  display: flex;
+  flex-flow: row wrap;
+  gap: 10px;
   .category-chip {
     --p-color: var(--color, #f61762);
     font-size: 16px;
@@ -53,9 +52,7 @@ export default {
     color: var(--p-color);
     color: white;
     .category-icon {
-      width: 1em;
-      height: 1em;
-      --size: 0.7em;
+      --size: 0.95em;
       padding: 0.1875em;
     }
     > .name {

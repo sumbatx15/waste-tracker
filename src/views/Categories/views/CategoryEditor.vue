@@ -5,7 +5,7 @@
         v-anime="{
           opacity: [0, 1],
           translateY: ['-20px', '0'],
-          duration: 500
+          duration: 500,
         }"
         >קטגוריה</span
       >
@@ -15,7 +15,7 @@
           translateY: ['50px', '0'],
           opacity: [0, 1],
           duration: 500,
-          easing: 'easeOutExpo'
+          easing: 'easeOutExpo',
         }"
         class="name-input"
         v-model="selectedCategory.name"
@@ -43,6 +43,22 @@
       </div>
     </div>
     <icon-picker :collapse="collapse" @iconSelect="handleIconSelect" />
+    <div class="matches-container">
+      <input
+        type="text"
+        v-model="matcher"
+        placeholder="הוסף מזהים.."
+        @keypress.enter="addMatcher"
+      />
+      <category-matches
+        stagger
+        :animDelay="1000"
+        removable
+        @remove="removeMatcher"
+        :category="category"
+        style="font-size: 1.1rem; justify-content: center"
+      />
+    </div>
   </div>
 </template>
 
@@ -51,29 +67,31 @@ import CategoryIcon from "../../../components/common/CategoryIcon.vue";
 import IconPicker from "../components/IconPicker.vue";
 import VSwatches from "vue-swatches";
 import "vue-swatches/dist/vue-swatches.css";
+import CategoryMatches from "../../../components/Categories/CategoryMatches.vue";
 export default {
   props: {
     category: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   components: {
     CategoryIcon,
     IconPicker,
-    VSwatches
+    VSwatches,
+    CategoryMatches,
   },
   data() {
     return {
       matcher: "",
-      collapse: true
+      collapse: true,
     };
   },
   computed: {
     selectedCategory() {
       if (this.category) return this.category;
       return this.$store.getters.categories.find(
-        c => c.id == this.$route.params?.id
+        (c) => c.id == this.$route.params?.id
       );
     },
     hasName() {
@@ -83,9 +101,9 @@ export default {
       if (this.hasName) return;
       return {
         fontWeight: 400,
-        color: "gray"
+        color: "gray",
       };
-    }
+    },
   },
   methods: {
     handleIconSelect({ iconName, prefix }) {
@@ -95,8 +113,21 @@ export default {
     },
     handleNameInput({ target: { innerText } }) {
       this.selectedCategory.name = innerText;
-    }
-  }
+    },
+    addMatcher() {
+      this.$store.commit("addMatcher", {
+        id: this.category.id,
+        matcher: this.matcher,
+      });
+      this.matcher = "";
+    },
+    removeMatcher(matcher) {
+      this.$store.commit("removeMatcher", {
+        id: this.category.id,
+        matcher,
+      });
+    },
+  },
 };
 </script>
 
@@ -171,6 +202,23 @@ export default {
         width: 1.8em !important;
         height: 1.8em !important;
       }
+    }
+  }
+  .matches-container {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    gap: 20px;
+    padding: 0 20px 20px;
+
+    input {
+      padding: 5px;
+      text-align: center;
+      border: none;
+      border-bottom: 2px solid rgba(0, 0, 0, 0.164);
+      background: transparent;
+      color: white;
+      flex: 1;
     }
   }
 }

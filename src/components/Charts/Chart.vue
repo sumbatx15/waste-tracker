@@ -1,7 +1,7 @@
 <template>
   <div v-if="hasItems" class="chart-container" :style="styleSize">
     <div class="chart-content">
-      <span class="small">Total spend</span>
+      <span class="small">סה"כ הוצאות</span>
       <animated-number
         class="spend"
         :value="totalSpend"
@@ -25,19 +25,19 @@ export default {
   props: {
     width: {
       type: Number,
-      default: 320
+      default: 320,
     },
     height: {
       type: Number,
-      default: 320
-    }
+      default: 320,
+    },
   },
   components: {
-    AnimatedNumber
+    AnimatedNumber,
   },
   data() {
     return {
-      chart: null
+      chart: null,
     };
   },
   computed: {
@@ -52,29 +52,28 @@ export default {
     },
 
     totalsByCategory() {
-      return this.rangeItems.reduce((totalsByCategory, item) => {
-        const index = totalsByCategory.findIndex(c => c.name == item.category);
+      return this.rangeItems.reduce((acc, item) => {
+        const index = acc.findIndex((c) => c.category.id == item.categoryId);
         if (index > -1) {
-          totalsByCategory[index].value += item.cost;
+          acc[index].value += item.cost;
         } else {
-          const category = this.categories.find(c => c.name == item.category);
-          totalsByCategory.push({
+          const category = this.categories.find((c) => c.id == item.categoryId);
+          acc.push({
             category,
-            name: item.category,
-            value: item.cost
+            value: item.cost,
           });
         }
-        return totalsByCategory;
+        return acc;
       }, []);
     },
     styleSize() {
       return {
         minHeight: this.height + "px",
-        minWidth: "100%" //this.width + 'px',
+        minWidth: "100%", //this.width + 'px',
         // height: this.height + 'px',
         // width: this.width + 'px'
       };
-    }
+    },
   },
   mounted() {
     this.initChart();
@@ -101,7 +100,7 @@ export default {
     initChart() {
       this.chart = echarts.init(this.$refs.chart);
       this.setOptions();
-    }
+    },
   },
 
   watch: {
@@ -109,9 +108,9 @@ export default {
       deep: true,
       handler() {
         this.setOptions();
-      }
-    }
-  }
+      },
+    },
+  },
 };
 </script>
 

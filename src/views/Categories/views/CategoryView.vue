@@ -4,15 +4,14 @@
       <fa
         v-anime="{
           translateX: ['-20px', '0'],
-          duration: 500
+          duration: 500,
         }"
         icon="chevron-left"
         @click="$router.go(-1)"
       ></fa>
     </nav>
     <div class="content">
-      <category-name-and-icon-controller :category="category" />
-      <matches-controller :category="category" />
+      <CategoryEditor :category="category" />
       <item-list />
     </div>
   </div>
@@ -24,8 +23,7 @@ import IconPicker from "../components/IconPicker.vue";
 import VSwatches from "vue-swatches";
 import "vue-swatches/dist/vue-swatches.css";
 import ItemList from "@/components/ItemList";
-import MatchesController from "./MatchesController.vue";
-import CategoryNameAndIconController from "./CategoryNameAndIconController.vue";
+import CategoryEditor from "./CategoryEditor.vue";
 
 export default {
   components: {
@@ -33,14 +31,13 @@ export default {
     IconPicker,
     VSwatches,
     ItemList,
-    MatchesController,
-    CategoryNameAndIconController
+    CategoryEditor,
   },
   data() {
     return {
       matcher: "",
       collapse: true,
-      categoryId: ""
+      categoryId: "",
     };
   },
   created() {
@@ -48,37 +45,11 @@ export default {
   },
   computed: {
     category() {
-      return this.$store.getters.categories.find(c => c.id == this.categoryId);
+      return this.$store.getters.categories.find(
+        (c) => c.id == this.categoryId
+      );
     },
-    hasName() {
-      return this.category.name;
-    },
-    nameStyle() {
-      if (this.hasName) return;
-      return {
-        fontWeight: 400,
-        color: "gray"
-      };
-    }
   },
-  methods: {
-    handleIconMount(el) {
-      this.$store.commit("setAnimateEnd", {
-        el: el,
-        clientRect: el.getBoundingClientRect()
-      });
-    },
-    handleIconSelect({ iconName, prefix }) {
-      this.category.icon.iconName = iconName;
-      this.category.icon.prefix = prefix;
-      this.collapse = true;
-    },
-    handleNameInput({ target: { innerText } }) {
-      console.log("innerText:", innerText);
-      this.category.name = innerText;
-      console.log(" this.category:", this.category);
-    }
-  }
 };
 </script>
 

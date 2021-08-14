@@ -3,12 +3,13 @@ import { getLocalStorageStrSize } from "@/utils";
 export default {
   state: {
     localStorageSize: getLocalStorageStrSize(),
-    showAddItemDialog: false
+    showAddItemDialog: false,
   },
   getters: {
     displayStorageSize: ({ localStorageSize: { kb, affix } }) => {
       return `${kb.toFixed(2)} ${affix}`;
-    }
+    },
+    showAddItemDialog: (state) => state.showAddItemDialog,
   },
   mutations: {
     setShowAddItemDialog(state, isOpen) {
@@ -17,6 +18,6 @@ export default {
     updateLocalStorageSize(state) {
       // state.localStorageSize = getLocalStorageStrSize();
       // TODO: this repeats infinite times
-    }
-  }
+    },
+  },
 };

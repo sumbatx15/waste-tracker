@@ -10,14 +10,14 @@ export default window.store = new Vuex.Store({
   modules: {
     app,
     items,
-    categories
+    categories,
   },
   plugins: [
-    // createPersistedState(),
+    createPersistedState(),
     // store => {
     //   store.subscribe(() => {
     //     store.commit('updateLocalStorageSize');
     //   });
     // }
-  ]
+  ],
 });

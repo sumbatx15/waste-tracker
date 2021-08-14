@@ -19,17 +19,17 @@ export default {
     stagger: Boolean,
     animDelay: {
       type: Number,
-      default: () => 0
+      default: () => 0,
     },
     removable: Boolean,
     category: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   components: {
-    Chip
-  }
+    Chip,
+  },
 };
 </script>
 

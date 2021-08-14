@@ -1,6 +1,11 @@
 <template>
   <vs-dialog v-model="isOpen">
-    <add-category-dialog v-if="showAddCategoryDialog" v-model="showAddCategoryDialog" :category="selectedCategory"/>
+    <add-category-dialog  
+      v-if="showAddCategoryDialog"
+      v-model="showAddCategoryDialog" 
+      :categoryName="categoryName"
+      :categoryMatches="[this.item.name]"
+    />
     <template #header>
       <h4 class="not-margin">הוסף מוצר</b></h4>
     </template>
@@ -13,9 +18,9 @@
           <common-input required v-model.number="item.amount" label="כמות" type="number" />
           <common-input required v-model.number="item.cost" label="עלות" type="number" />
           <common-input required v-model="categoryName" label="קטגוריה" />
-          <category-picker v-model="categoryName" @select="handleCategorySelect" />
+          <category-picker class="category-picker" v-model="categoryName" />
         </div>
-        <vs-button type="submit" dark block >
+        <vs-button style="margin-top: 2em" type="submit" dark block >
           אישור
         </vs-button>
       </div>
@@ -27,6 +32,7 @@
 import CategoryPicker from "@/components/Categories/CategoryPicker.vue";
 import { VueDatePicker } from "@mathieustan/vue-datepicker";
 import { mapGetters } from "vuex";
+import { getCategoryByMatcher } from '@/utils'
 import AddCategoryDialog from "../../views/Categories/views/AddCategoryDialog.vue";
 export default {
   components: {
@@ -39,6 +45,9 @@ export default {
       showAddCategoryDialog: false,
       categoryName: "",
     };
+  },
+  created(){
+    this.categoryName = getCategoryByMatcher(this.categories, this.item.name)?.name
   },
   computed: {
     isOpen: {
@@ -61,24 +70,15 @@ export default {
     },
   },
   methods: {
-    handleCategorySelect(category) {
-      console.log("category:", category);
-    },
-    handleAdd() {
-      this.$store.dispatch("addItem", this.item);
+    addItem() {
+      this.$store.dispatch("addItem", {item: this.item, category: this.selectedCategory});
       this.isOpen = false;
     },
     handleSubmit(ev) {
       if (!this.isInputedCategoryExists) {
-        this.$store.commit("addCategory", this.categoryName);
-        this.$store.commit("addMatcher", {
-          id: this.selectedCategory.id,
-          matcher: this.item.name,
-        });
-        this.showAddCategoryDialog = true;
-        return;
+        return this.showAddCategoryDialog = true
       }
-      // this.handleAdd();
+      this.addItem();
     },
   },
 };
@@ -114,8 +114,9 @@ export default {
     flex-flow: column;
     gap: 0.2em;
   }
+  .category-picker{
+    margin-top: 0.8em;
+  }
 }
 
-.inputs {
-}
 </style>

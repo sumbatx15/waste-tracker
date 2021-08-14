@@ -46,7 +46,7 @@ export default {
   computed: {
     ...mapGetters(["categories"]),
     category() {
-      return this.categories.find((c) => c.name == this.item.category);
+      return this.categories.find((c) => c.id == this.item.categoryId);
     },
     style() {
       return {
