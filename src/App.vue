@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <add-item-dialog />
+    <add-item-dialog v-if="showAddItemDialog" />
     <transition-page>
       <router-view class="view"></router-view>
     </transition-page>
@@ -9,12 +9,16 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import TransitionPage from "./components/Animation/TransitionPage.vue";
 import AddItemDialog from "./components/Dialogs/AddItemDialog.vue";
 import Navbar from "./components/Navbar.vue";
 
 export default {
-  components: { Navbar, TransitionPage, AddItemDialog }
+  components: { Navbar, TransitionPage, AddItemDialog },
+  computed: {
+  ...mapGetters(["showAddItemDialog"]),
+  },
 };
 </script>
 

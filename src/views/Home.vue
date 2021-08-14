@@ -3,7 +3,7 @@
     <div class="storage-size">{{ displayStorageSize }} | 5 MB</div>
     <!-- <DatePicker/> -->
     <!-- <button @click="resetState" style="position: fixed; top:0; left: 0; margin: 1rem">Reset State</button> -->
-    <chart />
+    <chart v-if="hasRangeItems" />
     <item-list class="items-list" />
   </div>
 </template>
@@ -16,23 +16,23 @@ import { mapGetters } from "vuex";
 export default {
   components: {
     ItemList,
-    Chart
+    Chart,
   },
   data() {
     return {
       name: "",
-      date: new Date()
+      date: new Date(),
     };
   },
   computed: {
-    ...mapGetters(["displayStorageSize"])
+    ...mapGetters(["displayStorageSize", "hasRangeItems"]),
   },
   methods: {
     resetState() {
       window.localStorage.clear();
       location.reload();
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss">
