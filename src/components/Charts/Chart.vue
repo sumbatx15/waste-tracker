@@ -25,19 +25,19 @@ export default {
   props: {
     width: {
       type: Number,
-      default: 320,
+      default: 320
     },
     height: {
       type: Number,
-      default: 320,
-    },
+      default: 320
+    }
   },
   components: {
-    AnimatedNumber,
+    AnimatedNumber
   },
   data() {
     return {
-      chart: null,
+      chart: null
     };
   },
   computed: {
@@ -51,16 +51,17 @@ export default {
       }, 0);
     },
 
-    totalsByCategory() {
+    totals_chartData() {
       return this.rangeItems.reduce((acc, item) => {
-        const index = acc.findIndex((c) => c.category.id == item.categoryId);
+        const index = acc.findIndex(c => c.category.id == item.categoryId);
         if (index > -1) {
           acc[index].value += item.cost;
         } else {
-          const category = this.categories.find((c) => c.id == item.categoryId);
+          const category = this.categories.find(c => c.id == item.categoryId);
           acc.push({
             category,
-            value: item.cost,
+            name: category.name,
+            value: item.cost
           });
         }
         return acc;
@@ -69,11 +70,11 @@ export default {
     styleSize() {
       return {
         minHeight: this.height + "px",
-        minWidth: "100%", //this.width + 'px',
+        minWidth: "100%" //this.width + 'px',
         // height: this.height + 'px',
         // width: this.width + 'px'
       };
-    },
+    }
   },
   mounted() {
     this.initChart();
@@ -94,23 +95,23 @@ export default {
       return `₪${value.toFixed(0)}`;
     },
     setOptions() {
-      const options = generateOptions(this.totalsByCategory);
+      const options = generateOptions(this.totals_chartData);
       this.chart.setOption(options);
     },
     initChart() {
       this.chart = echarts.init(this.$refs.chart);
       this.setOptions();
-    },
+    }
   },
 
   watch: {
-    totalsByCategory: {
+    totals_chartData: {
       deep: true,
       handler() {
         this.setOptions();
-      },
-    },
-  },
+      }
+    }
+  }
 };
 </script>
 

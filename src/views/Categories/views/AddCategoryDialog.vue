@@ -10,38 +10,37 @@
 
 <script>
 import CategoryEditor from "./CategoryEditor.vue";
-import {createCategory} from '@/utils'
-console.log('createCategory:', createCategory)
+import { createCategory } from "@/utils";
+console.log("createCategory:", createCategory);
 export default {
   props: {
     categoryName: String,
     categoryMatches: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
   },
   components: {
     CategoryEditor,
   },
-  data(){
+  data() {
     return {
-      category: null
-    }
+      category: null,
+    };
   },
-  created(){
-    console.log('created')
+  created() {
+    console.log("created");
     this.category = createCategory({
       name: this.categoryName,
-      matches: this.categoryMatches
-    })
+      matches: this.categoryMatches,
+    });
   },
-  methods:{
-    handleSubmit(){
-      console.log('handleSubmit:')
-      this.$store.commit('addCategory', this.category)
-      this.$emit('input', false);
-    }
-  }
+  methods: {
+    handleSubmit() {
+      this.$store.commit("addCategory", this.category);
+      this.$emit("input", false);
+    },
+  },
 };
 </script>
 

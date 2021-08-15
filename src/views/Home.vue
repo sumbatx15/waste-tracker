@@ -1,6 +1,9 @@
 <template>
   <div class="home">
-    <div class="storage-size">{{ displayStorageSize }} | 5 MB</div>
+    <div class="storage-size">
+      {{ displayStorageSize }} | 5 MB
+      <span @click="resetState">Reset</span>
+    </div>
     <!-- <DatePicker/> -->
     <!-- <button @click="resetState" style="position: fixed; top:0; left: 0; margin: 1rem">Reset State</button> -->
     <chart v-if="hasRangeItems" />
@@ -16,23 +19,23 @@ import { mapGetters } from "vuex";
 export default {
   components: {
     ItemList,
-    Chart,
+    Chart
   },
   data() {
     return {
       name: "",
-      date: new Date(),
+      date: new Date()
     };
   },
   computed: {
-    ...mapGetters(["displayStorageSize", "hasRangeItems"]),
+    ...mapGetters(["displayStorageSize", "hasRangeItems"])
   },
   methods: {
     resetState() {
       window.localStorage.clear();
       location.reload();
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss">

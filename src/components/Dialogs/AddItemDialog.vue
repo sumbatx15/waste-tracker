@@ -32,7 +32,7 @@
 import CategoryPicker from "@/components/Categories/CategoryPicker.vue";
 import { VueDatePicker } from "@mathieustan/vue-datepicker";
 import { mapGetters } from "vuex";
-import { getCategoryByMatcher } from '@/utils'
+import { getCategoryByMatcher } from "@/utils";
 import AddCategoryDialog from "../../views/Categories/views/AddCategoryDialog.vue";
 export default {
   components: {
@@ -46,8 +46,11 @@ export default {
       categoryName: "",
     };
   },
-  created(){
-    this.categoryName = getCategoryByMatcher(this.categories, this.item.name)?.name
+  created() {
+    this.categoryName = getCategoryByMatcher(
+      this.categories,
+      this.item.name
+    )?.name;
   },
   computed: {
     isOpen: {
@@ -71,12 +74,15 @@ export default {
   },
   methods: {
     addItem() {
-      this.$store.dispatch("addItem", {item: this.item, category: this.selectedCategory});
+      this.$store.dispatch("addItem", {
+        item: this.item,
+        category: this.selectedCategory,
+      });
       this.isOpen = false;
     },
     handleSubmit(ev) {
       if (!this.isInputedCategoryExists) {
-        return this.showAddCategoryDialog = true
+        return (this.showAddCategoryDialog = true);
       }
       this.addItem();
     },
@@ -114,9 +120,8 @@ export default {
     flex-flow: column;
     gap: 0.2em;
   }
-  .category-picker{
+  .category-picker {
     margin-top: 0.8em;
   }
 }
-
 </style>

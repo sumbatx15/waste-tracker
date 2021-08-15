@@ -17,8 +17,8 @@ import Navbar from "./components/Navbar.vue";
 export default {
   components: { Navbar, TransitionPage, AddItemDialog },
   computed: {
-  ...mapGetters(["showAddItemDialog"]),
-  },
+    ...mapGetters(["showAddItemDialog"])
+  }
 };
 </script>
 

@@ -4,12 +4,12 @@ export const createCategory = ({
   name,
   icon = { prefix: "fab", iconName: "buffer" },
   color = "#339de8",
-  match,
+  matches
 } = {}) => {
-  return { id: uniqid("cat-"), name, icon, color, match };
+  return { id: uniqid("cat-"), name, icon, color, matches };
 };
 export const getCategoryByMatcher = (categories, matcher) => {
-  return categories.find((c) => c.matches.includes(matcher));
+  return categories.find(c => c.matches.includes(matcher));
 };
 
 export const getLocalStorageStrSize = () => {
@@ -18,7 +18,7 @@ export const getLocalStorageStrSize = () => {
   const megaBytes = kiloBytes / 1024;
   return {
     kb: kiloBytes,
-    affix: megaBytes >= 1 ? "MB" : "KB",
+    affix: megaBytes >= 1 ? "MB" : "KB"
   };
 };
 export const Item = (item = {}) => {
@@ -30,6 +30,6 @@ export const Item = (item = {}) => {
     name: "",
     categoryId: "",
     timestamp: new Date().getTime(),
-    ...item,
+    ...item
   };
 };
